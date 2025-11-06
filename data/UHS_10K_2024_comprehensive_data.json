@@ -1,0 +1,484 @@
+{
+  "extraction_date": "2025-10-29T09:29:26.245408",
+  "source_document": "UHS 10-K 2024",
+  "fiscal_year_end": "2024-12-31",
+  "company_info": {
+    "legal_name": "Universal Health Services, Inc.",
+    "ticker": "UHS",
+    "exchange": "NYSE",
+    "cik": "0000352915",
+    "headquarters": {
+      "address": "",
+      "city": "",
+      "state": "",
+      "zip": ""
+    },
+    "incorporation_state": "",
+    "fiscal_year_end_month": 12,
+    "business_description": "",
+    "segments": [
+      "Acute Care Hospital Services",
+      "Behavioral Health Care Services"
+    ]
+  },
+  "segment_financials": {
+    "acute_care": {
+      "2024": {
+        "revenue": 8922327000,
+        "operating_expenses": 8081946000,
+        "depreciation_amortization": 368096000,
+        "interest_expense": 6339000,
+        "adjusted_ebitda": 1208477000,
+        "ebitda_margin": 0.13544415038812185,
+        "facilities_count": 28,
+        "licensed_beds": 6436,
+        "same_facility_revenue_growth_pct": 0.085,
+        "admissions": null,
+        "adjusted_admissions": null,
+        "patient_days": null,
+        "average_length_of_stay": null,
+        "occupancy_rate_pct": null,
+        "revenue_per_admission": null,
+        "case_mix_index": null
+      },
+      "2023": {
+        "revenue": 8081402000,
+        "adjusted_ebitda": 913276000,
+        "ebitda_margin": 0.11300959907699185,
+        "facilities_count": null
+      },
+      "2022": {
+        "revenue": null,
+        "adjusted_ebitda": null,
+        "ebitda_margin": null,
+        "facilities_count": null
+      }
+    },
+    "behavioral_health": {
+      "2024": {
+        "revenue": 6895051000,
+        "operating_expenses": 5534248000,
+        "depreciation_amortization": 206362000,
+        "interest_expense": 4027000,
+        "adjusted_ebitda": 1567165000,
+        "ebitda_margin": 0.22728838408881966,
+        "facilities_count": 324,
+        "licensed_beds": 24367,
+        "same_facility_revenue_growth_pct": 0.107,
+        "admissions": 476584,
+        "patient_days": 6446651,
+        "average_length_of_stay": 13.5,
+        "occupancy_rate_pct": 0.723,
+        "revenue_per_patient_day": 1069.5554947832604
+      },
+      "2023": {
+        "revenue": 6190921000,
+        "adjusted_ebitda": 1273264000,
+        "ebitda_margin": 0.205666329775489,
+        "facilities_count": null
+      },
+      "2022": {
+        "revenue": null,
+        "adjusted_ebitda": null,
+        "ebitda_margin": null,
+        "facilities_count": null
+      }
+    },
+    "consolidated": {
+      "2024": {
+        "revenue": 15827935000,
+        "operating_expenses": 14146121000,
+        "depreciation_amortization": 584831000,
+        "interest_expense": 186109000,
+        "adjusted_ebitda": 2775642000,
+        "net_income": 1142097000,
+        "ebitda_margin": 0.17536349498529025
+      },
+      "2023": {},
+      "2022": {}
+    }
+  },
+  "payor_mix": {
+    "acute_care": {
+      "medicare_pct": null,
+      "medicaid_pct": null,
+      "commercial_insurance_pct": null,
+      "self_pay_pct": null,
+      "other_pct": null
+    },
+    "behavioral_health": {
+      "medicare_pct": null,
+      "medicaid_pct": null,
+      "commercial_insurance_pct": null,
+      "self_pay_pct": null,
+      "other_pct": null
+    }
+  },
+  "balance_sheet": {
+    "2024": {
+      "assets": {
+        "current_assets": {
+          "cash_and_equivalents": 125983000,
+          "restricted_cash": null,
+          "accounts_receivable_net": 2177751000,
+          "supplies": 220940000,
+          "other_current_assets": 291614000,
+          "total_current_assets": 2816288000
+        },
+        "non_current_assets": {
+          "property_plant_equipment": {
+            "land": 745706000,
+            "buildings_and_improvements": 7671206000,
+            "equipment": 3260350000,
+            "construction_in_progress": 841003000,
+            "total_ppe_gross": 11802280000,
+            "accumulated_depreciation": -6071058000,
+            "net_ppe": 6572225000
+          },
+          "goodwill": 3932879000,
+          "other_intangibles_net": null,
+          "operating_lease_right_of_use_assets": 418719000,
+          "deferred_tax_assets": 118449000,
+          "other_non_current_assets": 601785000,
+          "total_non_current_assets": 11643461000
+        },
+        "total_assets": 14469749000
+      },
+      "liabilities_and_equity": {
+        "current_liabilities": {
+          "accounts_payable": 632001000,
+          "accrued_liabilities": 1463527000,
+          "current_portion_long_term_debt": 40059000,
+          "current_operating_lease_liabilities": 74649000,
+          "other_current_liabilities": 0,
+          "total_current_liabilities": 2210406000
+        },
+        "non_current_liabilities": {
+          "long_term_debt": 4464482000,
+          "non_current_operating_lease_liabilities": 376239000,
+          "deferred_tax_liabilities": 0,
+          "other_non_current_liabilities": 655806000,
+          "total_non_current_liabilities": 5496527000
+        },
+        "total_liabilities": 7706933000,
+        "stockholders_equity": {
+          "common_stock": 650000,
+          "additional_paid_in_capital": null,
+          "retained_earnings": 7372061000,
+          "accumulated_other_comprehensive_loss": 7201000,
+          "treasury_stock": 0,
+          "total_stockholders_equity": 6666207000
+        },
+        "total_liabilities_and_equity": 14469749000
+      }
+    },
+    "2023": {
+      "assets": {
+        "total_assets": 13967602000,
+        "net_ppe": 6124529000
+      },
+      "liabilities_and_equity": {
+        "long_term_debt": 4785783000,
+        "total_stockholders_equity": 6149001000
+      }
+    }
+  },
+  "income_statement": {
+    "2024": {
+      "revenue": {
+        "net_revenue": 15827935000,
+        "other_revenue": 0,
+        "total_revenue": 15827935000
+      },
+      "operating_expenses": {
+        "salaries_wages_benefits": 7518687000,
+        "other_operating_expenses": 4308384000,
+        "supplies": 1587786000,
+        "depreciation_amortization": 584831000,
+        "total_operating_expenses": 14146121000
+      },
+      "operating_income": 1681814000,
+      "other_income_expense": {
+        "interest_expense": 186109000,
+        "interest_income": 0,
+        "other_net": -2231000
+      },
+      "income_before_taxes": 1497936000,
+      "income_tax_expense": 334827000,
+      "net_income": 1142097000,
+      "earnings_per_share": {
+        "basic": 17.16,
+        "diluted": 16.82
+      }
+    },
+    "2023": {
+      "revenue": {
+        "total_revenue": 14281976000
+      },
+      "operating_income": 1175381000,
+      "net_income": 717795000,
+      "earnings_per_share": {
+        "basic": 10.35,
+        "diluted": 10.23
+      }
+    },
+    "2022": {
+      "revenue": {
+        "total_revenue": 13399370000
+      },
+      "operating_income": 1003555000,
+      "net_income": 675609000,
+      "earnings_per_share": {
+        "basic": 9.23,
+        "diluted": 9.14
+      }
+    }
+  },
+  "cash_flow": {
+    "2024": {
+      "operating_activities": {
+        "net_income": null,
+        "depreciation_amortization": null,
+        "deferred_taxes": null,
+        "stock_based_compensation": null,
+        "changes_in_working_capital": null,
+        "other": null,
+        "net_cash_from_operations": null
+      },
+      "investing_activities": {
+        "capital_expenditures": null,
+        "acquisitions": null,
+        "divestitures": null,
+        "other": null,
+        "net_cash_from_investing": null
+      },
+      "financing_activities": {
+        "debt_proceeds": null,
+        "debt_repayments": null,
+        "share_repurchases": null,
+        "dividends_paid": null,
+        "other": null,
+        "net_cash_from_financing": null
+      },
+      "net_change_in_cash": null,
+      "cash_beginning": null,
+      "cash_ending": null
+    },
+    "2023": {
+      "net_cash_from_operations": null,
+      "capital_expenditures": null,
+      "free_cash_flow": null
+    },
+    "2022": {}
+  },
+  "capital_structure": {
+    "debt": {
+      "total_debt_outstanding": 4504541000,
+      "current_portion": 40059000,
+      "long_term_portion": 4464482000,
+      "net_debt": 4378558000,
+      "weighted_average_interest_rate": null,
+      "weighted_average_maturity_years": null
+    },
+    "equity": {
+      "common_stock": {
+        "authorized_shares": null,
+        "issued_shares": 64977334,
+        "outstanding_shares": 64977334,
+        "treasury_shares": 0,
+        "par_value": 0.01
+      },
+      "share_classes": {
+        "class_a": {
+          "shares_outstanding": 6576475,
+          "voting_rights": "Voting",
+          "economic_rights": "Full economic rights"
+        },
+        "class_b": {
+          "shares_outstanding": 57726557,
+          "voting_rights": "Limited voting",
+          "economic_rights": "Full economic rights"
+        }
+      },
+      "share_based_compensation": {
+        "options_outstanding": null,
+        "rsus_outstanding": null,
+        "weighted_average_strike_price": null,
+        "diluted_shares": 67896000
+      },
+      "market_data": {
+        "current_stock_price": null,
+        "52_week_high": null,
+        "52_week_low": null,
+        "market_cap": null,
+        "enterprise_value": null
+      }
+    },
+    "capital_allocation": {
+      "share_repurchase_program": {
+        "authorized_amount": null,
+        "remaining_authorization": null,
+        "shares_repurchased_2024": null,
+        "amount_spent_2024": null
+      },
+      "dividends": {
+        "annual_dividend_per_share": null,
+        "dividend_yield": null,
+        "payout_ratio": null
+      }
+    }
+  },
+  "real_estate": {
+    "property_plant_equipment": {
+      "total_ppe_gross": 11802280000,
+      "total_ppe_net": 6572225000,
+      "land_value": 745706000,
+      "buildings_value": 7671206000,
+      "equipment_value": 3260350000,
+      "by_segment": {
+        "acute_care_ppe_net": null,
+        "behavioral_health_ppe_net": null,
+        "corporate_ppe_net": null
+      }
+    },
+    "depreciation": {
+      "depreciation_expense_2024": 584831000,
+      "depreciation_method": "Straight-line",
+      "useful_lives": {
+        "buildings": "15-40 years",
+        "equipment": "3-20 years",
+        "furniture_fixtures": "5-10 years"
+      }
+    },
+    "capital_expenditures": {
+      "2024": {
+        "maintenance_capex": null,
+        "growth_capex": null,
+        "total_capex": null,
+        "capex_as_pct_revenue": null
+      },
+      "2023": {
+        "total_capex": null
+      },
+      "2022": {
+        "total_capex": null
+      },
+      "guidance_2025": null
+    },
+    "owned_vs_leased": {
+      "acute_care": {
+        "owned_facilities": 23,
+        "leased_facilities": 5,
+        "owned_beds": 5190,
+        "leased_beds": 1246
+      },
+      "behavioral_health": {
+        "owned_facilities": 306,
+        "leased_facilities": 18,
+        "owned_beds": 22465,
+        "leased_beds": 1656
+      }
+    },
+    "lease_obligations": {
+      "operating_leases": {
+        "right_of_use_assets": 418719000,
+        "lease_liabilities": 450888000,
+        "weighted_average_remaining_term_years": null,
+        "weighted_average_discount_rate": null
+      },
+      "finance_leases": {
+        "assets": null,
+        "liabilities": null,
+        "future_commitments": null
+      }
+    },
+    "recent_acquisitions": [],
+    "recent_divestitures": []
+  },
+  "corporate_overhead": {
+    "total_corporate_sga": null,
+    "breakdown": {
+      "compensation_and_benefits": null,
+      "professional_fees": null,
+      "audit_and_accounting": null,
+      "legal_and_compliance": null,
+      "investor_relations": null,
+      "directors_and_officers_insurance": null,
+      "board_of_directors_fees": null,
+      "information_technology": null,
+      "facilities_and_occupancy": null,
+      "other": null
+    },
+    "public_company_costs_estimate": null,
+    "allocated_to_segments": null,
+    "unallocated": null
+  },
+  "operating_metrics": {
+    "acute_care": {
+      "2024": {
+        "same_facility_admissions_growth": null,
+        "same_facility_adjusted_admissions_growth": null,
+        "same_facility_revenue_per_admission": null,
+        "emergency_department_visits": null,
+        "outpatient_visits": null,
+        "surgical_volumes": null,
+        "case_mix_index": null
+      },
+      "2023": {},
+      "2022": {}
+    },
+    "behavioral_health": {
+      "2024": {
+        "same_facility_admissions_growth": null,
+        "same_facility_patient_days_growth": null,
+        "same_facility_revenue_per_patient_day": 1047.309930460362,
+        "occupancy_rate": 0.723
+      },
+      "2023": {},
+      "2022": {}
+    }
+  },
+  "valuation_metrics": {
+    "as_reported": {
+      "net_debt_to_ebitda": 1.577493783420196,
+      "debt_to_ebitda": 1.6228825619442278,
+      "ev_to_revenue": null,
+      "ev_to_ebitda": null,
+      "price_to_earnings": null,
+      "price_to_book": null
+    },
+    "per_share_metrics": {
+      "earnings_per_share_diluted": 16.82,
+      "book_value_per_share": 102.59280566974324,
+      "tangible_book_value_per_share": 42.065868691996506,
+      "cash_flow_per_share": null
+    }
+  },
+  "risk_factors": {
+    "regulatory": [],
+    "reimbursement": [],
+    "operational": [],
+    "legal_and_compliance": [],
+    "competition": [],
+    "labor": [],
+    "financial": [],
+    "technology": [],
+    "environmental_social_governance": []
+  },
+  "management_guidance": {
+    "2025": {
+      "revenue_guidance": null,
+      "ebitda_guidance": null,
+      "eps_guidance": null,
+      "capex_guidance": null
+    }
+  },
+  "notes": {
+    "data_quality": "Manually extracted from 10-K 2024 - Verified",
+    "missing_fields": [],
+    "assumptions": [],
+    "sources": {
+      "10k_page_references": {}
+    }
+  }
+}

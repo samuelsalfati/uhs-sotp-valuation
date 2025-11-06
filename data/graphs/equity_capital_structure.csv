@@ -1,0 +1,6 @@
+Share_Class,Shares_Outstanding,Par_Value,Pct_Total_Shares,Exchange_Listed,Convertible_To,Voting_Rights_Directors,Votes_Per_Share_General,Special_Conditions,Economic_Rights
+Class A Common,6576475,0.01,10.1%,No,Class B (1:1),"Elects 5 directors (90.5% power)",1 vote,Always,Equal to Class B
+Class B Common,57726557,0.01,88.9%,NYSE: UHS,Not convertible,"Elects 2 directors (9.5% power)",0.1 vote,Always,Equal to Class A
+Class C Common,661688,0.01,1.0%,No,Class B (1:1),"Elects 5 directors (90.5% power)",100 votes,IF owns 10x Class A; else 1 vote,Equal to all classes
+Class D Common,12614,0.01,0.0%,No,Class B (1:1),"Elects 2 directors (9.5% power)",10 votes,IF owns 10x Class B; else 0.1 vote,Equal to all classes
+TOTAL,64977334,,100.0%,,,,,,

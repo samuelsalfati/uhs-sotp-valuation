@@ -1,0 +1,5 @@
+Category,Gross_Value_M,Accum_Depreciation_M,Net_Value_M,Pct_of_Total_Gross,Pct_of_Total_Net
+Land,745.706,0.0,745.706,6.3,11.3
+Buildings,7671.206,,,65.0,
+Equipment,3260.35,,,27.6,
+Total PP&E,11802.28,-6071.058,6572.225,100.0,100.0

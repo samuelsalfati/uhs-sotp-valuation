@@ -1,0 +1,8 @@
+Instrument,Type,Seniority,Outstanding_Principal_M,Interest_Rate,Maturity_Date,Annual_Interest_M,Secured_By,Quarterly_Amortization_M,Issued_Date,Use_of_Proceeds
+Revolving Credit Facility,Revolver,Senior Secured,130,SOFR + 1.375%,2029-09-26,6.2,All assets,Variable (draw/repay),2024-09-26 (10th amendment),Working capital
+Tranche A Term Loan,Term Loan,Senior Secured,1190,SOFR + 1.375%,2029-09-26,56.9,All assets,7.5,2024-09-26,Refinance old $2.2B term loan
+Senior Notes 1.65%,Bond,Senior Unsecured,700,1.65%,2026-08-15,11.6,None (unsecured),0,2021-08-01,General corporate purposes
+Senior Notes 4.625%,Bond,Senior Unsecured,500,4.625%,2029-09-26,23.1,None (unsecured),0,2024-09-26,Refinance term loan
+Senior Notes 2.65% (2030),Bond,Senior Unsecured,800,2.65%,2030-09-15,21.2,None (unsecured),0,2020-09-01,General corporate purposes
+Senior Notes 2.65% (2032),Bond,Senior Unsecured,500,2.65%,2032-08-15,13.3,None (unsecured),0,2021-08-01,General corporate purposes
+Senior Notes 5.050%,Bond,Senior Unsecured,500,5.050%,2034-09-26,25.3,None (unsecured),0,2024-09-26,Refinance term loan

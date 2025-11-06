@@ -1,0 +1,4 @@
+Segment,Region,Total_Facilities,Owned_Facilities,Leased_Facilities,Total_Beds,Owned_Beds,Leased_Beds,Avg_Beds_per_Facility,Owned_Pct,Leased_Pct,Owned_Beds_Pct
+Acute Care,US,28,23,5,6436,5190,1246,229.85714285714286,82.1,17.9,80.6
+Behavioral Health,US,177,162,15,21113,19547,1566,119.28248587570621,91.5,8.5,92.6
+Behavioral Health,UK,147,144,3,3008,2918,90,20.462585034013607,98.0,2.0,97.0

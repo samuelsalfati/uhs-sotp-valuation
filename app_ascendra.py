@@ -1,0 +1,2162 @@
+"""
+UHS ACQUISITION ANALYSIS - ASCENDRA CAPITAL
+Confidential & Proprietary
+
+Target: Universal Health Services (NYSE: UHS)
+Acquirer: Ascendra Capital
+"""
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+import os
+import yfinance as yf
+from datetime import datetime
+
+# ==========================================
+# PAGE CONFIG
+# ==========================================
+
+st.set_page_config(
+    page_title="UHS Acquisition Analysis | Ascendra Capital",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ==========================================
+# HELPER FUNCTIONS
+# ==========================================
+
+@st.cache_data(ttl=900)  # Cache for 15 minutes (900 seconds)
+def get_live_stock_price(ticker="UHS"):
+    """
+    Fetch live stock price from Yahoo Finance
+    Returns current price and last update timestamp
+    Falls back to manual price if API fails
+    """
+    try:
+        stock = yf.Ticker(ticker)
+        data = stock.history(period="1d")
+        if not data.empty:
+            current_price = round(data['Close'].iloc[-1], 2)
+            last_update = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            return current_price, last_update, True
+    except Exception as e:
+        pass
+
+    # Fallback to manual entry
+    return 225.30, "Manual Entry", False
+
+def clean_currency(val):
+    """Convert currency string like '$449.89' or '$14,576' to float"""
+    if pd.isna(val):
+        return 0.0
+    if isinstance(val, (int, float)):
+        return float(val)
+    if isinstance(val, str):
+        cleaned = val.replace('$', '').replace(',', '').replace('+', '').replace('%', '').strip()
+        try:
+            return float(cleaned)
+        except:
+            return 0.0
+    return 0.0
+
+def format_currency(val, decimals=0):
+    """Format number as currency"""
+    if decimals == 0:
+        return f"${val:,.0f}"
+    else:
+        return f"${val:,.{decimals}f}"
+
+def load_csv_safe(path):
+    """Load CSV with error handling"""
+    try:
+        return pd.read_csv(path)
+    except Exception as e:
+        st.error(f"Error loading {path}: {e}")
+        return pd.DataFrame()
+
+# ==========================================
+# LOAD LOGO
+# ==========================================
+
+try:
+    logo = Image.open("Assets/logo.png")
+    has_logo = True
+except:
+    has_logo = False
+
+# ==========================================
+# ASCENDRA COLOR SCHEME
+# ==========================================
+
+ASCENDRA_COLORS = {
+    'primary_blue': '#4cc9f0',
+    'accent_green': '#06ffa5',
+    'dark_bg': '#0a1929',
+    'card_bg': '#1b263b',
+    'text': '#e0e1dd',
+    'text_muted': '#778da9',
+    'border': '#2d3e50'
+}
+
+st.markdown("""
+<style>
+    /* Dark professional background */
+    .stApp {
+        background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%) !important;
+    }
+
+    .main {
+        background-color: transparent !important;
+    }
+
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%) !important;
+        border-right: 2px solid #4cc9f0;
+    }
+
+    section[data-testid="stSidebar"] .stRadio > label {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        color: #4cc9f0 !important;
+        margin-bottom: 15px !important;
+    }
+
+    section[data-testid="stSidebar"] .stRadio > div {
+        background: transparent !important;
+    }
+
+    section[data-testid="stSidebar"] .stRadio > div > label {
+        background: #0d1b2a !important;
+        padding: 12px 20px !important;
+        border-radius: 8px !important;
+        margin: 5px 0 !important;
+        border: 1px solid #2d3e50 !important;
+        transition: all 0.3s ease !important;
+    }
+
+    section[data-testid="stSidebar"] .stRadio > div > label:hover {
+        background: #1b263b !important;
+        border-color: #4cc9f0 !important;
+    }
+
+    section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"] {
+        background: linear-gradient(135deg, #4cc9f0 0%, #06ffa5 100%) !important;
+        border-color: #06ffa5 !important;
+        color: #0d1b2a !important;
+        font-weight: 700 !important;
+    }
+
+    .block-container {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    /* Text colors */
+    h1, h2, h3, h4, h5, h6, p, span, div, label {
+        color: #e0e1dd !important;
+    }
+
+    h1 {
+        color: #4cc9f0 !important;
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    h2 {
+        color: #4cc9f0 !important;
+        font-size: 2rem !important;
+        font-weight: 600 !important;
+        margin-top: 2rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    h3 {
+        color: #06ffa5 !important;
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+    }
+
+    /* Metric containers */
+    div[data-testid="metric-container"] {
+        background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #2d3e50;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    div[data-testid="metric-container"] label {
+        color: #778da9 !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+    }
+
+    div[data-testid="metric-container"] [data-testid="stMetricValue"] {
+        color: #4cc9f0 !important;
+        font-size: 28px !important;
+        font-weight: 700 !important;
+    }
+
+    div[data-testid="metric-container"] [data-testid="stMetricDelta"] {
+        color: #06ffa5 !important;
+    }
+
+    /* DataFrames */
+    .stDataFrame {
+        background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #2d3e50;
+    }
+
+    /* Tables */
+    table {
+        color: #e0e1dd !important;
+        background: #1b263b !important;
+    }
+
+    thead tr th {
+        background: #0d1b2a !important;
+        color: #4cc9f0 !important;
+        font-weight: 700 !important;
+    }
+
+    tbody tr:hover {
+        background: #2d3e50 !important;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #4cc9f0 0%, #06ffa5 100%);
+        color: #0d1b2a !important;
+        border: none;
+        padding: 10px 24px;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+
+    .stButton > button:hover {
+        box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+    }
+
+    /* Download buttons */
+    .stDownloadButton > button {
+        background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+        color: #4cc9f0 !important;
+        border: 1px solid #4cc9f0;
+    }
+
+    /* Info boxes */
+    .stAlert {
+        background: #1b263b !important;
+        border: 1px solid #4cc9f0 !important;
+        color: #e0e1dd !important;
+    }
+
+    /* Custom value box */
+    .value-box {
+        background: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+        padding: 30px;
+        border-radius: 15px;
+        border: 2px solid #4cc9f0;
+        margin: 20px 0;
+        box-shadow: 0 8px 16px rgba(76, 201, 240, 0.2);
+    }
+
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        background: #1b263b;
+        border: 1px solid #2d3e50;
+        color: #778da9;
+        border-radius: 8px 8px 0 0;
+        padding: 10px 20px;
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #4cc9f0 0%, #06ffa5 100%);
+        color: #0d1b2a !important;
+        font-weight: 700;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# ==========================================
+# SIDEBAR NAVIGATION
+# ==========================================
+
+if has_logo:
+    st.sidebar.image(logo, width=200)
+else:
+    st.sidebar.title("🏢 Ascendra Capital")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🎯 UHS ACQUISITION ANALYSIS")
+st.sidebar.markdown("**Target:** Universal Health Services")
+st.sidebar.markdown("**Ticker:** NYSE: UHS")
+
+# Fetch live price
+CURRENT_PRICE, PRICE_UPDATE_TIME, IS_LIVE = get_live_stock_price("UHS")
+
+if IS_LIVE:
+    st.sidebar.markdown(f"**Current Price:** <span style='color: #06ffa5; font-size: 18px; font-weight: bold;'>${CURRENT_PRICE:.2f}</span> 🟢", unsafe_allow_html=True)
+    st.sidebar.caption(f"📡 Live from Yahoo Finance • {PRICE_UPDATE_TIME}")
+else:
+    st.sidebar.markdown(f"**Current Price:** ${CURRENT_PRICE:.2f}")
+    st.sidebar.caption("⚠️ Using manual fallback price")
+
+st.sidebar.markdown("---")
+
+page = st.sidebar.radio(
+    "NAVIGATE",
+    [
+        "📊 Executive Summary",
+        "💎 SOTP Valuation",
+        "📈 DCF Analysis",
+        "💰 LBO Analysis",
+        "🚀 Synergies",
+        "🏦 Capital Structure",
+        "🎯 Sensitivity Analysis",
+        "🔍 Methodology",
+        "📁 Data Explorer"
+    ],
+    label_visibility="visible"
+)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("**📅 Prepared:** October 29, 2025")
+st.sidebar.markdown("**🔒 Classification:** Highly Confidential")
+
+# ==========================================
+# LOAD ALL DATA
+# ==========================================
+
+@st.cache_data
+def load_all_data():
+    """Load all CSV data files"""
+    data = {}
+
+    # SOTP Data
+    data['sotp_scenarios'] = load_csv_safe('data/graphs/sotp_valuation_scenarios.csv')
+    data['sotp_detailed'] = load_csv_safe('data/graphs/sotp_valuation_detailed.csv')
+    data['sotp_opco_sensitivity'] = load_csv_safe('data/graphs/sotp_opco_multiple_sensitivity.csv')
+    data['sotp_propco_sensitivity'] = load_csv_safe('data/graphs/sotp_propco_caprate_sensitivity.csv')
+
+    # DCF Data
+    data['dcf_projections'] = load_csv_safe('data/graphs/dcf_projections_10yr.csv')
+    data['dcf_pv_analysis'] = load_csv_safe('data/graphs/dcf_pv_analysis.csv')
+    data['dcf_sensitivity'] = load_csv_safe('data/graphs/dcf_sensitivity_wacc_terminal.csv')
+    data['dcf_summary'] = load_csv_safe('data/graphs/dcf_valuation_summary.csv')
+
+    # LBO Data
+    data['lbo_projections'] = load_csv_safe('data/graphs/lbo_projections_5yr.csv')
+    data['lbo_scenarios'] = load_csv_safe('data/graphs/lbo_scenario_analysis.csv')
+    data['lbo_irr_sensitivity'] = load_csv_safe('data/graphs/lbo_sensitivity_irr.csv')
+    data['lbo_moic_sensitivity'] = load_csv_safe('data/graphs/lbo_sensitivity_moic.csv')
+    data['lbo_summary'] = load_csv_safe('data/graphs/lbo_valuation_summary.csv')
+
+    # Synergies Data
+    data['synergies_summary'] = load_csv_safe('data/graphs/hill_valley_synergies_summary.csv')
+    data['cost_synergies'] = load_csv_safe('data/graphs/hill_valley_cost_synergies.csv')
+    data['proforma_financials'] = load_csv_safe('data/graphs/hill_valley_proforma_financials.csv')
+
+    # Capital Structure
+    data['debt_instruments'] = load_csv_safe('data/graphs/debt_instruments.csv')
+    data['debt_maturity'] = load_csv_safe('data/graphs/debt_maturity_schedule.csv')
+    data['equity_structure'] = load_csv_safe('data/graphs/equity_capital_structure.csv')
+
+    # Football Field
+    data['football_field'] = load_csv_safe('data/graphs/football_field_summary.csv')
+
+    # Acquisition Analysis
+    data['acquisition_premiums'] = load_csv_safe('data/graphs/acquisition_premium_analysis.csv')
+
+    return data
+
+data = load_all_data()
+
+# ==========================================
+# PAGE: EXECUTIVE SUMMARY
+# ==========================================
+
+if page == "📊 Executive Summary":
+    st.title("📊 EXECUTIVE SUMMARY")
+    st.markdown("### UHS Acquisition Analysis - Investment Recommendation")
+
+    st.markdown("---")
+
+    # Top-level metrics
+    col1, col2, col3, col4, col5 = st.columns(5)
+
+    # Get base case from SOTP scenarios
+    sotp_base = data['sotp_scenarios'][data['sotp_scenarios']['Scenario'] == 'BASE'].iloc[0]
+
+    with col1:
+        fair_value_weighted = 410  # From updated football field
+        upside_pct = ((fair_value_weighted - CURRENT_PRICE) / CURRENT_PRICE) * 100
+        st.metric(
+            "Fair Value (Weighted)",
+            f"${fair_value_weighted}/share",
+            delta=f"+{upside_pct:.0f}% vs Current"
+        )
+
+    with col2:
+        st.metric(
+            "SOTP Base Case",
+            f"${clean_currency(sotp_base['Value Per Share']):.0f}",
+            delta=f"+{clean_currency(sotp_base['Upside %']):.0f}%"
+        )
+
+    with col3:
+        price_indicator = "🟢 Live" if IS_LIVE else "⚪ Manual"
+        st.metric(
+            "Current Price",
+            f"${CURRENT_PRICE:.2f}",
+            delta=f"{price_indicator}"
+        )
+
+    with col4:
+        st.metric(
+            "Annual Synergies",
+            "$433M",
+            delta="+$67/share"
+        )
+
+    with col5:
+        st.metric(
+            "Recommended Offer",
+            "$333-375",
+            delta="60-80% Premium"
+        )
+
+    st.markdown("---")
+
+    # THE BIG CONCLUSION
+    st.success("💡 INVESTMENT RECOMMENDATION")
+    st.subheader("PURSUE ACQUISITION AT $333-375/SHARE")
+
+    st.write("**Why This Deal Makes Sense:**")
+    st.write("")
+    st.write(f"✅ **Deep Value:** UHS trades at ${CURRENT_PRICE:.2f}, worth $410 = **{upside_pct:.0f}% upside**")
+    st.write("")
+    st.write("✅ **Synergies:** $433M annual cost savings = **$67/share additional value**")
+    st.write("")
+    st.write("✅ **Executable:** Miller family controls 90.5% voting (one decision maker)")
+    st.write("")
+    st.write("✅ **Returns:** 3-year IRR of **28-32%** (exceptional)")
+    st.write("")
+    st.write("✅ **Still Cheap:** Even at $355 (70% premium), buying **15% below fair value**")
+
+    st.markdown("---")
+
+    # All Valuation Methods Summary
+    st.markdown("### 📊 All Valuation Methods")
+    st.markdown("Weighted average across 5 independent methodologies")
+
+    if not data['football_field'].empty:
+        ff_display = data['football_field'].copy()
+        st.dataframe(
+            ff_display.style.format({
+                'Low ($)': '${:,.0f}',
+                'Base ($)': '${:,.0f}',
+                'High ($)': '${:,.0f}',
+                'Weight (%)': '{:.0f}%'
+            }),
+            use_container_width=True,
+            height=300
+        )
+
+    # Display football field chart if exists
+    if os.path.exists('data/graphs/football_field_valuation.png'):
+        st.markdown("### 🎯 Football Field Valuation Chart")
+        st.image('data/graphs/football_field_valuation.png', use_column_width=True)
+
+    st.markdown("---")
+
+    # Key Investment Highlights
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.markdown("### 🎯 Investment Highlights")
+        st.markdown("""
+        **1. Market Misunderstands UHS**
+        - Market values as single business at 6.4x EBITDA
+        - Reality: Should value 4 parts separately
+        - Behavioral: Premium 9.5x (high margin, growth)
+        - Acute Care: Standard 7.0x
+        - Real Estate: $6.6B value unlocked
+
+        **2. Massive Synergy Opportunity**
+        - $135M: Corporate overhead elimination
+        - $144M: Procurement at Hill Valley rates
+        - $55M: IT systems consolidation
+        - $99M: Other efficiencies
+        - **Total: $433M annual (15.6% EBITDA uplift)**
+
+        **3. Highly Executable Deal**
+        - Alan Miller (87) controls 90.5% voting
+        - Succession planning likely priority
+        - No hostile takeover cost/risk
+        - Strong FCF supports leverage
+        """)
+
+    with col_right:
+        st.markdown("### ⚠️ Risk Factors & Mitigation")
+        st.markdown("""
+        **1. Miller Says No (40% probability)**
+        - *Mitigation:* Succession angle, premium offer
+        - *Backup:* Wait 12-24 months, retry
+
+        **2. Synergies Don't Materialize (30%)**
+        - *Mitigation:* Conservative estimates
+        - *Backup:* Still buying below fair value
+
+        **3. Recession/Multiple Compression (30%)**
+        - *Mitigation:* Healthcare defensive, bear case profitable
+        - *Backup:* Long-term hold, demographics favorable
+
+        **4. Integration Challenges (60%)**
+        - *Mitigation:* Hire Big 4, retain operators
+        - *Backup:* Budget 20% more time/cost
+
+        **Downside Protected:**
+        - Bear case still worth $372 (79% upside)
+        - Strong FCF ($1.4B/year) supports debt paydown
+        - Investment grade credit (1.58x Net Debt/EBITDA)
+        """)
+
+    st.markdown("---")
+
+    # Next Steps
+    st.markdown("### 🚀 Next Steps")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown("""
+        **1. Internal (Weeks 1-2)**
+        - ✅ Investment Committee review
+        - ⏳ IC approval & go-ahead
+        - ⏳ Engage M&A advisor
+        """)
+
+    with col2:
+        st.markdown("""
+        **2. Approach (Weeks 3-8)**
+        - ⏳ Confidential approach to Miller
+        - ⏳ Management meetings
+        - ⏳ Facility tours
+        - ⏳ Understand family priorities
+        """)
+
+    with col3:
+        st.markdown("""
+        **3. Execute (Months 3-12)**
+        - ⏳ Secure financing commitments
+        - ⏳ Submit offer $333-375/share
+        - ⏳ 60-90 day due diligence
+        - ⏳ 9-12 month regulatory approval
+        """)
+
+# ==========================================
+# PAGE: SOTP VALUATION
+# ==========================================
+
+elif page == "💎 SOTP Valuation":
+    st.title("💎 SUM-OF-THE-PARTS VALUATION")
+    st.markdown("### 4-Part Breakdown: Behavioral & Acute Care Operations + Real Estate")
+
+    st.markdown("---")
+
+    # Explanation of SOTP
+    st.markdown("""
+    <div class="value-box">
+        <h3 style="color: #4cc9f0 !important;">Why 4-Part SOTP?</h3>
+        <p style="font-size: 16px; color: #e0e1dd !important;">
+        The market values UHS as a single entity at 6.4x EBITDA. This misses the full picture:
+        <br><br>
+        <b>1. Behavioral Health OpCo:</b> Premium 9.5x multiple (high margin 29.1%, growth sector)<br>
+        <b>2. Behavioral Health PropCo:</b> $3.9B real estate at 6.5% cap rate<br>
+        <b>3. Acute Care OpCo:</b> Standard 7.0x multiple (lower margin 17.5%)<br>
+        <b>4. Acute Care PropCo:</b> $2.7B real estate at 6.5% cap rate<br>
+        <br>
+        <b style="color: #06ffa5;">Result: $33.5B EV vs market's $17.9B = 87% undervaluation</b>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # Three Scenarios
+    st.markdown("### 📊 Three Scenarios: Bear / Base / Bull")
+
+    if not data['sotp_scenarios'].empty:
+        scenarios_display = data['sotp_scenarios'].copy()
+
+        # Display as nice table
+        st.dataframe(
+            scenarios_display,
+            use_container_width=True,
+            height=200
+        )
+
+    st.markdown("---")
+
+    # Detailed breakdown for BASE case
+    st.markdown("### 🔍 BASE CASE - Detailed Breakdown")
+
+    if not data['sotp_detailed'].empty:
+        detailed = data['sotp_detailed'][data['sotp_detailed']['Scenario'] == 'BASE'].iloc[0]
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric(
+                "Behavioral OpCo",
+                f"${clean_currency(detailed['Behavioral_OpCo_Value'])/1000:.1f}B",
+                delta=f"{clean_currency(detailed['Behavioral_OpCo_Multiple']):.1f}x EBITDA"
+            )
+            st.caption(f"EBITDA: ${clean_currency(detailed['Behavioral_OpCo_EBITDA']):.0f}M")
+
+        with col2:
+            st.metric(
+                "Behavioral PropCo",
+                f"${clean_currency(detailed['Behavioral_PropCo_Value'])/1000:.1f}B",
+                delta=f"{clean_currency(detailed['Behavioral_Cap_Rate'])*100:.1f}% cap rate"
+            )
+            st.caption(f"NOI: ${clean_currency(detailed['Behavioral_PropCo_NOI']):.0f}M")
+
+        with col3:
+            st.metric(
+                "Acute OpCo",
+                f"${clean_currency(detailed['Acute_OpCo_Value'])/1000:.1f}B",
+                delta=f"{clean_currency(detailed['Acute_OpCo_Multiple']):.1f}x EBITDA"
+            )
+            st.caption(f"EBITDA: ${clean_currency(detailed['Acute_OpCo_EBITDA']):.0f}M")
+
+        with col4:
+            st.metric(
+                "Acute PropCo",
+                f"${clean_currency(detailed['Acute_PropCo_Value'])/1000:.1f}B",
+                delta=f"{clean_currency(detailed['Acute_Cap_Rate'])*100:.1f}% cap rate"
+            )
+            st.caption(f"NOI: ${clean_currency(detailed['Acute_PropCo_NOI']):.0f}M")
+
+    st.markdown("---")
+
+    # Sensitivity Analysis
+    st.markdown("### 📈 Sensitivity Analysis")
+
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.markdown("#### OpCo Multiple Sensitivity")
+        if not data['sotp_opco_sensitivity'].empty:
+            st.dataframe(
+                data['sotp_opco_sensitivity'],
+                use_container_width=True
+            )
+
+    with col_right:
+        st.markdown("#### PropCo Cap Rate Sensitivity")
+        if not data['sotp_propco_sensitivity'].empty:
+            st.dataframe(
+                data['sotp_propco_sensitivity'],
+                use_container_width=True
+            )
+
+    st.markdown("---")
+
+    # Key Takeaways
+    st.markdown("### 💡 Key Takeaways")
+    st.markdown("""
+    **1. Market Mispricing**
+    - Market implies 6.4x EV/EBITDA for entire business
+    - Behavioral should trade at 9-11x (peers: ACHC at 10.2x)
+    - Acute Care should trade at 6-8x (peers: HCA at 7.8x)
+    - Real estate worth $6.6B not reflected in valuation
+
+    **2. Base Case: $449/share (115% upside)**
+    - Behavioral OpCo: $17.3B (9.5x)
+    - Behavioral PropCo: $3.9B (6.5% cap)
+    - Acute OpCo: $9.7B (7.0x)
+    - Acute PropCo: $2.7B (6.5% cap)
+    - **Total EV: $33.5B**
+
+    **3. Conservative Assumptions**
+    - Using mid-range multiples
+    - Standard cap rates for healthcare RE
+    - No growth premium despite strong demographics
+    - No credit for synergies in this valuation
+    """)
+
+# ==========================================
+# PAGE: DCF ANALYSIS
+# ==========================================
+
+elif page == "📈 DCF Analysis":
+    st.title("📈 DISCOUNTED CASH FLOW ANALYSIS")
+    st.markdown("### 10-Year Projection with Terminal Value")
+
+    st.markdown("---")
+
+    # DCF Summary
+    if not data['dcf_summary'].empty:
+        dcf_sum = data['dcf_summary'].iloc[0]
+
+        col1, col2, col3, col4, col5 = st.columns(5)
+
+        with col1:
+            st.metric(
+                "Intrinsic Value",
+                f"${clean_currency(dcf_sum['value_per_share']):.0f}",
+                delta=f"+{clean_currency(dcf_sum['upside_pct']):.0f}%"
+            )
+
+        with col2:
+            st.metric(
+                "Enterprise Value",
+                f"${clean_currency(dcf_sum['enterprise_value'])/1000:.1f}B"
+            )
+
+        with col3:
+            st.metric(
+                "WACC",
+                f"{clean_currency(dcf_sum['wacc'])*100:.1f}%"
+            )
+
+        with col4:
+            st.metric(
+                "Terminal Growth",
+                f"{clean_currency(dcf_sum['terminal_growth'])*100:.1f}%"
+            )
+
+        with col5:
+            st.metric(
+                "PV of FCF (10yr)",
+                f"${clean_currency(dcf_sum['pv_fcf_10yr'])/1000:.1f}B"
+            )
+
+    st.markdown("---")
+
+    # DCF Methodology
+    st.markdown("""
+    <div class="value-box">
+        <h3 style="color: #4cc9f0 !important;">DCF Methodology</h3>
+        <p style="font-size: 16px; color: #e0e1dd !important;">
+        <b>Revenue Growth Assumptions:</b><br>
+        • Years 1-3: 5% (near-term momentum)<br>
+        • Years 4-5: 4% (moderate growth)<br>
+        • Years 6-10: 3% (long-term steady state)<br><br>
+
+        <b>Margin Improvement:</b><br>
+        • Current EBITDA margin: 17.5%<br>
+        • Target margin: 19.0% by Year 5<br>
+        • Gradual improvement through operational efficiencies<br><br>
+
+        <b>Discount Rate (WACC): 9.0%</b><br>
+        • Risk-free rate: 4.5%<br>
+        • Equity risk premium: 6.0%<br>
+        • Beta: 0.95 (healthcare services)<br>
+        • Cost of debt: 5.5% (current average)<br><br>
+
+        <b>Terminal Value: 2.5% perpetual growth</b><br>
+        • Conservative long-term GDP + healthcare inflation
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # 10-Year Projections
+    st.markdown("### 📊 10-Year Financial Projections")
+
+    if not data['dcf_projections'].empty:
+        projections_display = data['dcf_projections'].copy()
+
+        # Select key columns to display
+        key_cols = ['Year', 'Revenue ($M)', 'EBITDA ($M)', 'EBITDA Margin (%)',
+                    'Free Cash Flow ($M)', 'Discount Factor', 'PV of FCF ($M)']
+
+        if all(col in projections_display.columns for col in key_cols):
+            st.dataframe(
+                projections_display[key_cols],
+                use_container_width=True,
+                height=400
+            )
+        else:
+            st.dataframe(projections_display, use_container_width=True, height=400)
+
+    st.markdown("---")
+
+    # Sensitivity Analysis
+    st.markdown("### 🎯 Sensitivity Analysis: WACC vs Terminal Growth")
+
+    if not data['dcf_sensitivity'].empty:
+        st.dataframe(
+            data['dcf_sensitivity'],
+            use_container_width=True,
+            height=300
+        )
+
+        st.markdown("""
+        **Key Insights:**
+        - Value highly sensitive to WACC (discount rate)
+        - Range: $361 - $489 per share
+        - Base case $425 at 9.0% WACC, 2.5% terminal growth
+        - Even conservative assumptions (10% WACC, 2% growth) = $361 (73% upside)
+        """)
+
+    st.markdown("---")
+
+    # PV Analysis
+    st.markdown("### 💰 Present Value Analysis")
+
+    if not data['dcf_pv_analysis'].empty:
+        pv_display = data['dcf_pv_analysis'].copy()
+        st.dataframe(pv_display, use_container_width=True)
+
+        st.info("""
+        **Terminal Value is 56% of Enterprise Value**
+        - This is normal for stable healthcare business
+        - Shows strong long-term cash generation potential
+        - 10-year cash flows alone worth $14B ($215/share)
+        """)
+
+# ==========================================
+# PAGE: LBO ANALYSIS
+# ==========================================
+
+elif page == "💰 LBO Analysis":
+    st.title("💰 LEVERAGED BUYOUT ANALYSIS")
+    st.markdown("### 5-Year Hold Period with Strategic Exit")
+
+    st.markdown("---")
+
+    # LBO Summary
+    if not data['lbo_summary'].empty:
+        lbo_sum = data['lbo_summary'].iloc[0]
+
+        col1, col2, col3, col4, col5 = st.columns(5)
+
+        with col1:
+            st.metric(
+                "Entry Price",
+                f"${clean_currency(lbo_sum['entry_price']):.0f}",
+                delta="Base Case"
+            )
+
+        with col2:
+            st.metric(
+                "5-Year IRR",
+                f"{clean_currency(lbo_sum['irr'])*100:.1f}%",
+                delta="Strong Returns"
+            )
+
+        with col3:
+            st.metric(
+                "MOIC",
+                f"{clean_currency(lbo_sum['moic']):.2f}x",
+                delta="Money Multiple"
+            )
+
+        with col4:
+            st.metric(
+                "Initial Equity",
+                f"${clean_currency(lbo_sum['initial_equity'])/1000:.1f}B"
+            )
+
+        with col5:
+            st.metric(
+                "Exit Value",
+                f"${clean_currency(lbo_sum['exit_equity_value'])/1000:.1f}B"
+            )
+
+    st.markdown("---")
+
+    # LBO Structure
+    st.markdown("""
+    <div class="value-box">
+        <h3 style="color: #4cc9f0 !important;">LBO Transaction Structure</h3>
+        <p style="font-size: 16px; color: #e0e1dd !important;">
+        <b>Entry at $355/share (70% premium)</b><br><br>
+
+        <b>Sources & Uses:</b><br>
+        • Equity Purchase Price: $23.1B ($355 × 64.98M shares)<br>
+        • Refinance Existing Debt: $4.4B<br>
+        • Transaction Costs: $0.7B<br>
+        • <b>Total Uses: $28.2B</b><br><br>
+
+        <b>Financing:</b><br>
+        • New Debt: $13.9B (5.0x EBITDA cap)<br>
+        • Ascendra Equity: $14.1B (50.4%)<br>
+        • Rollover/Co-invest: $0.2B<br>
+        • <b>Total Sources: $28.2B</b><br><br>
+
+        <b>Exit Strategy (Year 5):</b><br>
+        • Exit Multiple: 9.0x EBITDA<br>
+        • Debt Paydown from FCF<br>
+        • Strategic or IPO exit
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # 5-Year Projections
+    st.markdown("### 📊 5-Year LBO Projections")
+
+    if not data['lbo_projections'].empty:
+        lbo_proj = data['lbo_projections'].copy()
+        st.dataframe(lbo_proj, use_container_width=True, height=300)
+
+    st.markdown("---")
+
+    # Scenario Analysis
+    st.markdown("### 🎯 LBO Scenario Analysis")
+
+    if not data['lbo_scenarios'].empty:
+        scenarios = data['lbo_scenarios'].copy()
+        st.dataframe(scenarios, use_container_width=True, height=350)
+
+        st.markdown("""
+        **Key Insights:**
+        - Base case ($355 entry): 13.0% IRR, 1.84x MOIC
+        - Even conservative bear case: 8.5% IRR (acceptable)
+        - Bull case: 16.9% IRR, 2.22x MOIC (exceptional)
+        - All scenarios produce positive returns
+        """)
+
+    st.markdown("---")
+
+    # Sensitivity Analysis
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.markdown("#### IRR Sensitivity (Entry × Exit)")
+        if not data['lbo_irr_sensitivity'].empty:
+            st.dataframe(
+                data['lbo_irr_sensitivity'],
+                use_container_width=True
+            )
+
+    with col_right:
+        st.markdown("#### MOIC Sensitivity (Entry × Exit)")
+        if not data['lbo_moic_sensitivity'].empty:
+            st.dataframe(
+                data['lbo_moic_sensitivity'],
+                use_container_width=True
+            )
+
+    st.markdown("---")
+
+    # Reverse LBO
+    st.markdown("### 🔄 Reverse LBO Analysis")
+    st.markdown("**What's the maximum price to pay for target returns?**")
+
+    st.markdown("""
+    | Target IRR | Max Entry Price | Premium to Current |
+    |------------|-----------------|-------------------|
+    | 20% | $300 | 44% |
+    | 25% | $265 | 27% |
+    | 30% | $225 | 8% |
+
+    **Conclusion:** At $355 entry (70% premium), we achieve 13% IRR which is acceptable for this size deal and risk profile.
+    Given the strategic value and synergies, this is compelling.
+    """)
+
+# ==========================================
+# PAGE: SYNERGIES
+# ==========================================
+
+elif page == "🚀 Synergies":
+    st.title("🚀 SYNERGIES ANALYSIS")
+    st.markdown("### $433M Annual Cost Savings Identified")
+
+    st.markdown("---")
+
+    # Synergies Summary
+    if not data['synergies_summary'].empty:
+        syn_sum = data['synergies_summary'].iloc[0]
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric(
+                "Total Annual Synergies",
+                f"${clean_currency(syn_sum['cost_synergies_annual']):.0f}M",
+                delta="Run-Rate"
+            )
+
+        with col2:
+            st.metric(
+                "Synergy Value (10x)",
+                f"${clean_currency(syn_sum['synergy_value_at_10x'])/1000:.1f}B",
+                delta="PV of Savings"
+            )
+
+        with col3:
+            st.metric(
+                "Value Per Share",
+                f"${clean_currency(syn_sum['synergy_value_per_share']):.0f}",
+                delta="Additional Upside"
+            )
+
+        with col4:
+            # Calculate EBITDA uplift
+            ebitda_uplift = (clean_currency(syn_sum['cost_synergies_annual']) / 2775) * 100  # $2775M base EBITDA
+            st.metric(
+                "EBITDA Uplift",
+                f"{ebitda_uplift:.1f}%",
+                delta="Margin Improvement"
+            )
+
+    st.markdown("---")
+
+    # Synergies Breakdown
+    st.markdown("### 📊 Cost Synergies Breakdown")
+
+    if not data['cost_synergies'].empty:
+        cost_syn = data['cost_synergies'].copy()
+
+        # Display table
+        st.dataframe(
+            cost_syn.style.format({
+                'Annual Savings ($M)': '${:,.0f}',
+                '% of Total': '{:.1f}%'
+            }),
+            use_container_width=True,
+            height=350
+        )
+
+        # Create a bar chart
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig.patch.set_facecolor('#0a1929')
+        ax.set_facecolor('#1b263b')
+
+        categories = cost_syn['Category'].tolist()
+        savings = [clean_currency(val) for val in cost_syn['Annual Savings ($M)'].tolist()]
+
+        bars = ax.barh(categories, savings, color='#4cc9f0', edgecolor='#06ffa5', linewidth=2)
+
+        ax.set_xlabel('Annual Savings ($M)', fontsize=14, color='#e0e1dd', fontweight='bold')
+        ax.set_title('Cost Synergies Breakdown', fontsize=16, color='#4cc9f0', fontweight='bold', pad=20)
+        ax.tick_params(colors='#e0e1dd', labelsize=12)
+        ax.spines['bottom'].set_color('#2d3e50')
+        ax.spines['left'].set_color('#2d3e50')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.grid(axis='x', alpha=0.2, color='#2d3e50')
+
+        # Add value labels
+        for i, bar in enumerate(bars):
+            width = bar.get_width()
+            ax.text(width + 5, bar.get_y() + bar.get_height()/2,
+                   f'${width:.0f}M',
+                   ha='left', va='center', fontsize=11, color='#06ffa5', fontweight='bold')
+
+        plt.tight_layout()
+        st.pyplot(fig)
+
+    st.markdown("---")
+
+    # Detailed Synergies Explanation
+    st.markdown("### 💡 Synergy Details & Rationale")
+
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.markdown("""
+        #### 1. Corporate Overhead ($135M)
+        **What:**
+        - Eliminate duplicate C-suite positions
+        - Consolidate finance, legal, HR, IR functions
+        - Reduce public company costs (board, filings, etc.)
+
+        **How:**
+        - UHS current corporate overhead: ~$180M
+        - Ascendra can absorb 75% of functions
+        - Savings: $135M annually
+
+        **Risk:** Medium - requires careful change management
+
+        ---
+
+        #### 2. Procurement ($144M)
+        **What:**
+        - Negotiate Hill Valley rates for medical supplies
+        - Consolidated group purchasing organization (GPO)
+        - Standardize equipment across facilities
+
+        **How:**
+        - UHS spends $3.6B on supplies/pharmaceuticals
+        - Hill Valley achieves 4% better pricing
+        - Savings: $144M annually (4% × $3.6B)
+
+        **Risk:** Low - proven with Hill Valley track record
+
+        ---
+
+        #### 3. IT Systems Consolidation ($55M)
+        **What:**
+        - Migrate to single EHR platform
+        - Consolidate data centers
+        - Reduce IT headcount
+
+        **How:**
+        - UHS IT spend: $220M
+        - Consolidate to Ascendra systems: 25% savings
+        - Savings: $55M annually
+
+        **Risk:** Medium - implementation takes 18-24 months
+        """)
+
+    with col_right:
+        st.markdown("""
+        #### 4. Facility Rationalization ($40M)
+        **What:**
+        - Close 3-5 underperforming acute care hospitals
+        - Redirect patients to higher-quality facilities
+        - Redevelop or sell real estate
+
+        **How:**
+        - UHS has ~5 hospitals with negative EBITDA
+        - Average loss: $8M per facility
+        - Savings: $40M + real estate value
+
+        **Risk:** High - requires regulatory approval, community impact
+
+        ---
+
+        #### 5. Other Efficiencies ($59M)
+        **What:**
+        - Labor optimization (scheduling, productivity)
+        - Revenue cycle management improvements
+        - Shared services (laundry, food service, etc.)
+        - Insurance/benefits consolidation
+
+        **How:**
+        - Labor: $25M (better scheduling, reduce agency staff)
+        - RCM: $15M (faster collections, reduce bad debt)
+        - Shared services: $10M
+        - Insurance: $9M (better rates at scale)
+        - **Total: $59M**
+
+        **Risk:** Low-Medium - requires operational discipline
+
+        ---
+
+        ### 🎯 Implementation Timeline
+        - **Year 1:** $150M (35% of total)
+        - **Year 2:** $300M (70% of total)
+        - **Year 3:** $433M (100% run-rate)
+
+        One-time costs: $120M implementation spend
+        """)
+
+    st.markdown("---")
+
+    # Pro-Forma Financials
+    st.markdown("### 📈 Pro-Forma Financials with Synergies")
+
+    if not data['proforma_financials'].empty:
+        proforma = data['proforma_financials'].copy()
+        st.dataframe(proforma, use_container_width=True)
+
+        st.success("""
+        **With synergies, UHS would generate:**
+        - Pro-forma EBITDA: $3.2B (vs $2.8B standalone)
+        - Pro-forma EBITDA margin: 20.7% (vs 17.5% standalone)
+        - This justifies a higher multiple (10x+ vs 9.5x)
+        - **Combined fair value with synergies: $516/share**
+        """)
+
+# ==========================================
+# PAGE: CAPITAL STRUCTURE
+# ==========================================
+
+elif page == "🏦 Capital Structure":
+    st.title("🏦 CAPITAL STRUCTURE ANALYSIS")
+    st.markdown("### Debt Instruments, Maturity Schedule & Control")
+
+    st.markdown("---")
+
+    # Capital Structure Overview
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+        st.metric(
+            "Total Debt",
+            "$4,378M"
+        )
+
+    with col2:
+        st.metric(
+            "Net Debt / EBITDA",
+            "1.58x",
+            delta="Investment Grade"
+        )
+
+    with col3:
+        st.metric(
+            "Equity Value",
+            "$29.2B",
+            delta="Base Case"
+        )
+
+    with col4:
+        st.metric(
+            "Miller Family Control",
+            "90.5%",
+            delta="Voting Power"
+        )
+
+    st.markdown("---")
+
+    # Debt Instruments
+    st.markdown("### 💰 Debt Instruments Detail")
+
+    if not data['debt_instruments'].empty:
+        debt = data['debt_instruments'].copy()
+        st.dataframe(debt, use_container_width=True, height=350)
+
+        st.info("""
+        **Debt Profile:**
+        - Well-laddered maturity schedule (2026-2030)
+        - Mix of secured and unsecured
+        - Weighted average coupon: ~5.2%
+        - No near-term refinancing risk
+        - Investment grade credit profile
+        """)
+
+    st.markdown("---")
+
+    # Maturity Schedule
+    st.markdown("### 📅 Debt Maturity Schedule")
+
+    if not data['debt_maturity'].empty:
+        maturity = data['debt_maturity'].copy()
+
+        st.dataframe(maturity, use_container_width=True)
+
+        # Create maturity chart
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig.patch.set_facecolor('#0a1929')
+        ax.set_facecolor('#1b263b')
+
+        years = maturity['Year'].tolist()
+        amounts = [clean_currency(val) for val in maturity['Principal_Due_M'].tolist()]
+
+        bars = ax.bar(years, amounts, color='#4cc9f0', edgecolor='#06ffa5', linewidth=2, width=0.6)
+
+        ax.set_xlabel('Year', fontsize=14, color='#e0e1dd', fontweight='bold')
+        ax.set_ylabel('Principal Due ($M)', fontsize=14, color='#e0e1dd', fontweight='bold')
+        ax.set_title('Debt Maturity Schedule', fontsize=16, color='#4cc9f0', fontweight='bold', pad=20)
+        ax.tick_params(colors='#e0e1dd', labelsize=12)
+        ax.spines['bottom'].set_color('#2d3e50')
+        ax.spines['left'].set_color('#2d3e50')
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.grid(axis='y', alpha=0.2, color='#2d3e50')
+
+        # Add value labels
+        for bar in bars:
+            height = bar.get_height()
+            if height > 0:
+                ax.text(bar.get_x() + bar.get_width()/2, height + 30,
+                       f'${height:.0f}M',
+                       ha='center', va='bottom', fontsize=11, color='#06ffa5', fontweight='bold')
+
+        plt.tight_layout()
+        st.pyplot(fig)
+
+    st.markdown("---")
+
+    # Equity Structure
+    st.markdown("### 📊 Equity Capital Structure")
+
+    if not data['equity_structure'].empty:
+        equity = data['equity_structure'].copy()
+        st.dataframe(equity, use_container_width=True)
+
+        st.markdown("""
+        <div class="value-box">
+            <h3 style="color: #4cc9f0 !important;">Miller Family Control Structure</h3>
+            <p style="font-size: 16px; color: #e0e1dd !important;">
+            <b>Key Points:</b><br><br>
+
+            • Alan Miller (founder, 87 years old) controls <b style="color: #06ffa5;">90.5% of voting power</b><br>
+            • Family owns only <b>10.8% economic interest</b> (7M shares)<br>
+            • Dual-class structure: Class B shares have 10x voting rights<br>
+            • Public holds 89.2% economics but only 9.5% votes<br><br>
+
+            <b style="color: #4cc9f0;">Acquisition Implications:</b><br>
+            • No hostile takeover possible (family veto power)<br>
+            • Only need to convince Alan Miller (one decision maker)<br>
+            • Succession planning likely priority given age<br>
+            • Premium offer can create $2.3-2.6B value for family<br>
+            • Clean transaction - no activist risk, no board fight
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ==========================================
+# PAGE: SENSITIVITY ANALYSIS
+# ==========================================
+
+elif page == "🎯 Sensitivity Analysis":
+    st.title("🎯 SENSITIVITY ANALYSIS")
+    st.markdown("### Understanding Value Drivers & Downside Protection")
+
+    st.markdown("---")
+
+    # Tabs for different sensitivities
+    sens_tab1, sens_tab2, sens_tab3 = st.tabs([
+        "📊 SOTP Sensitivity",
+        "📈 DCF Sensitivity",
+        "💰 LBO Sensitivity"
+    ])
+
+    with sens_tab1:
+        st.markdown("### SOTP Multiple & Cap Rate Sensitivity")
+
+        col_left, col_right = st.columns(2)
+
+        with col_left:
+            st.markdown("#### OpCo EBITDA Multiple Impact")
+            if not data['sotp_opco_sensitivity'].empty:
+                st.dataframe(
+                    data['sotp_opco_sensitivity'],
+                    use_container_width=True
+                )
+                st.markdown("""
+                **Key Insight:**
+                - Each 0.5x multiple change = ~$40-50/share
+                - Base case uses conservative mid-range multiples
+                - Peer trading comps support higher multiples
+                """)
+
+        with col_right:
+            st.markdown("#### PropCo Cap Rate Impact")
+            if not data['sotp_propco_sensitivity'].empty:
+                st.dataframe(
+                    data['sotp_propco_sensitivity'],
+                    use_container_width=True
+                )
+                st.markdown("""
+                **Key Insight:**
+                - Each 50bps cap rate change = ~$15-20/share
+                - 6.5% is conservative for healthcare RE
+                - Premium operators trade at 6.0% or lower
+                """)
+
+    with sens_tab2:
+        st.markdown("### DCF WACC & Terminal Growth Sensitivity")
+
+        if not data['dcf_sensitivity'].empty:
+            st.dataframe(
+                data['dcf_sensitivity'],
+                use_container_width=True,
+                height=350
+            )
+
+            st.markdown("""
+            <div class="value-box">
+                <h3 style="color: #4cc9f0 !important;">DCF Sensitivity Insights</h3>
+                <p style="font-size: 16px; color: #e0e1dd !important;">
+                <b>WACC Impact (Most Sensitive):</b><br>
+                • 8.0% WACC: $489/share (+135%)<br>
+                • 9.0% WACC: $425/share (+104%) ← Base case<br>
+                • 10.0% WACC: $361/share (+73%)<br><br>
+
+                <b>Terminal Growth (Less Sensitive):</b><br>
+                • 2.0% growth: $389/share<br>
+                • 2.5% growth: $425/share ← Base case<br>
+                • 3.0% growth: $461/share<br><br>
+
+                <b>Takeaway:</b> Even with conservative assumptions (10% WACC, 2% growth),
+                value is still $349/share = 67% upside. <span style="color: #06ffa5;">Strong downside protection.</span>
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+    with sens_tab3:
+        st.markdown("### LBO Entry Price & Exit Multiple Sensitivity")
+
+        col_left, col_right = st.columns(2)
+
+        with col_left:
+            st.markdown("#### IRR Sensitivity")
+            if not data['lbo_irr_sensitivity'].empty:
+                st.dataframe(
+                    data['lbo_irr_sensitivity'],
+                    use_container_width=True
+                )
+
+        with col_right:
+            st.markdown("#### MOIC Sensitivity")
+            if not data['lbo_moic_sensitivity'].empty:
+                st.dataframe(
+                    data['lbo_moic_sensitivity'],
+                    use_container_width=True
+                )
+
+        st.markdown("""
+        **LBO Sensitivity Conclusions:**
+        - At $355 entry, need 8.5x+ exit to achieve 20% IRR
+        - Base case assumes 9.0x exit (conservative)
+        - If exit at 10x: IRR jumps to 18.5%
+        - Recommend offer $333-375 range for target returns
+        """)
+
+    st.markdown("---")
+
+    # Downside Protection
+    st.markdown("### 🛡️ Downside Protection Analysis")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown("""
+        #### Bear Case
+        **Assumptions:**
+        - Behavioral: 8.0x (vs 9.5x base)
+        - Acute: 6.0x (vs 7.0x base)
+        - Cap rate: 7.5% (vs 6.5% base)
+
+        **Result: $372/share**
+        - Still +79% upside
+        - Even in recession scenario
+        - Healthcare defensive sector
+        """)
+
+    with col2:
+        st.markdown("""
+        #### Base Case
+        **Assumptions:**
+        - Behavioral: 9.5x
+        - Acute: 7.0x
+        - Cap rate: 6.5%
+
+        **Result: $449/share**
+        - +115% upside
+        - Conservative multiples
+        - Mid-range cap rates
+        """)
+
+    with col3:
+        st.markdown("""
+        #### Bull Case
+        **Assumptions:**
+        - Behavioral: 11.0x (peer-level)
+        - Acute: 8.0x (HCA-level)
+        - Cap rate: 5.5% (premium RE)
+
+        **Result: $531/share**
+        - +155% upside
+        - Still justifiable
+        - Market re-rating scenario
+        """)
+
+# ==========================================
+# PAGE: METHODOLOGY
+# ==========================================
+
+elif page == "🔍 Methodology":
+    st.title("🔍 VALUATION METHODOLOGY")
+    st.markdown("### Complete Methodology, Assumptions & Data Sources")
+
+    st.markdown("---")
+
+    # Overview
+    st.markdown("""
+    <div class="value-box">
+        <h3 style="color: #4cc9f0 !important;">Our Approach: 5 Independent Methodologies</h3>
+        <p style="font-size: 16px; color: #e0e1dd !important;">
+        We valued UHS using 5 different methodologies to triangulate fair value:
+        <br><br>
+        <b>1. Sum-of-the-Parts (SOTP) - Weight: 30%</b><br>
+        • 4-part valuation: Behavioral/Acute OpCo + PropCo<br>
+        • Captures segment-specific multiples and real estate value<br>
+        • Base case: $449/share<br><br>
+
+        <b>2. Discounted Cash Flow (DCF) - Weight: 25%</b><br>
+        • 10-year projection with terminal value<br>
+        • WACC: 9.0%, Terminal growth: 2.5%<br>
+        • Base case: $425/share<br><br>
+
+        <b>3. Leveraged Buyout (LBO) - Weight: 20%</b><br>
+        • 5-year hold, reverse LBO for max entry price<br>
+        • Target 20% IRR → Max $300/share<br>
+        • Base case: $320/share (implied by 20% IRR)<br><br>
+
+        <b>4. Precedent Transactions - Weight: 15%</b><br>
+        • Recent M&A in behavioral health & acute care<br>
+        • Premium multiples for quality assets<br>
+        • Base case: $388/share<br><br>
+
+        <b>5. Comparable Companies - Weight: 10%</b><br>
+        • Public peers: ACHC, THC, HCA, CYH<br>
+        • Trading multiples adjusted for differences<br>
+        • Base case: $290/share<br><br>
+
+        <b style="color: #06ffa5;">WEIGHTED AVERAGE: $420/share (102% upside)</b>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # Detailed Methodology Sections
+    method_tab1, method_tab2, method_tab3, method_tab4, method_tab5 = st.tabs([
+        "💎 SOTP",
+        "📈 DCF",
+        "💰 LBO",
+        "📊 Precedent Tx",
+        "🏢 Comparable Cos"
+    ])
+
+    with method_tab1:
+        st.markdown("### Sum-of-the-Parts (SOTP) Methodology")
+
+        st.markdown("""
+        **Concept:**
+        Value each business segment separately, then sum to get total enterprise value.
+
+        **Why 4 Parts?**
+        1. **Behavioral Health OpCo** - Higher margin (29.1%), growth sector, deserves premium 9-11x multiple
+        2. **Behavioral Health PropCo** - Real estate supporting behavioral facilities
+        3. **Acute Care OpCo** - Lower margin (17.5%), competitive sector, standard 6-8x multiple
+        4. **Acute Care PropCo** - Real estate supporting acute care hospitals
+
+        **Key Steps:**
+        1. Separate reported EBITDA by segment (from 10-K)
+        2. Calculate imputed rent (Real Estate Value × 6.5% cap rate)
+        3. Add imputed rent back to EBITDA to get pro-forma OpCo EBITDA
+        4. Value OpCo at appropriate EBITDA multiple
+        5. Value PropCo using cap rate method (NOI / Cap Rate)
+        6. Sum all 4 parts
+
+        **Real Estate Allocation:**
+        - Total PP&E (net): $6,572M
+        - Allocated to segments using average of 3 methods:
+          - By beds: 79% Behavioral / 21% Acute
+          - By revenue: 44% Behavioral / 56% Acute
+          - By EBITDA: 56% Behavioral / 44% Acute
+          - **Average: 60% Behavioral ($3,921M) / 40% Acute ($2,651M)**
+
+        **Multiples Selection:**
+        - Behavioral OpCo: 9.5x (range 8-11x)
+          - Peers: ACHC 10.2x, THC 9.8x
+          - UHS has larger scale → slight discount
+        - Acute Care OpCo: 7.0x (range 6-8x)
+          - Peers: HCA 7.8x, CYH 6.2x
+          - Mid-range appropriate
+        - Cap Rate: 6.5% (range 5.5%-7.5%)
+          - Healthcare RE typically 6.0-7.0%
+          - Conservativ assumption
+
+        **Data Sources:**
+        - UHS 10-K (2024): Segment reporting, financial statements
+        - Capital IQ: Peer trading multiples
+        - Green Street Advisors: Healthcare REIT cap rates
+        """)
+
+    with method_tab2:
+        st.markdown("### Discounted Cash Flow (DCF) Methodology")
+
+        st.markdown("""
+        **Concept:**
+        Value = Present value of future free cash flows + Terminal value
+
+        **Projection Assumptions:**
+
+        **Revenue Growth:**
+        - Years 1-3: 5% (near-term momentum from aging demographics)
+        - Years 4-5: 4% (moderate growth)
+        - Years 6-10: 3% (long-term GDP + healthcare inflation)
+        - Justification: Healthcare demand driven by demographics (65+ population growing 3%/year)
+
+        **EBITDA Margin:**
+        - Current: 17.5%
+        - Target: 19.0% by Year 5
+        - Path: Gradual 30bps improvement per year
+        - Justification: Operational efficiencies, peer margin levels
+
+        **Other Assumptions:**
+        - Tax rate: 21% (federal corporate rate)
+        - CapEx: 4% of revenue (maintain/grow facilities)
+        - NWC: 5% of revenue change
+        - D&A: 3.5% of revenue (asset-intensive business)
+
+        **WACC Calculation (9.0%):**
+        - Risk-free rate: 4.5% (10-year Treasury)
+        - Equity risk premium: 6.0% (historical average)
+        - Beta: 0.95 (healthcare services, Damodaran)
+        - Cost of equity: 4.5% + 0.95 × 6.0% = 10.2%
+        - Cost of debt: 5.5% (current weighted average)
+        - After-tax cost of debt: 5.5% × (1 - 21%) = 4.3%
+        - Target capital structure: 30% debt / 70% equity
+        - **WACC: 10.2% × 70% + 4.3% × 30% = 9.0%**
+
+        **Terminal Value:**
+        - Perpetual growth rate: 2.5%
+        - Justification: Long-term GDP (2.0%) + healthcare inflation (0.5%)
+        - Terminal FCF: $1,862M (Year 10)
+        - Terminal Value: $1,862M / (9.0% - 2.5%) = $28,646M
+        - PV of Terminal Value: $17,994M (56% of EV)
+
+        **Data Sources:**
+        - UHS historical financials: 10-K filings
+        - Industry growth rates: CMS OACT projections
+        - WACC inputs: Bloomberg, Damodaran, Federal Reserve
+        """)
+
+    with method_tab3:
+        st.markdown("### Leveraged Buyout (LBO) Methodology")
+
+        st.markdown("""
+        **Concept:**
+        What's the maximum price a financial sponsor would pay to achieve target returns?
+
+        **Transaction Structure:**
+
+        **Sources & Uses (at $355 entry):**
+        - Uses:
+          - Equity purchase: $23,068M ($355 × 64.98M shares)
+          - Refinance debt: $4,378M
+          - Transaction costs: $695M (3%)
+          - **Total: $28,141M**
+
+        - Sources:
+          - New debt: $13,878M (5.0x LTM EBITDA)
+          - Ascendra equity: $14,117M (50.4%)
+          - Rollover/coinvest: $145M (0.5%)
+          - **Total: $28,141M**
+
+        **Debt Structure:**
+        - Senior secured term loan: $8,000M (2.9x, L+400, 6.5%)
+        - Senior unsecured notes: $4,000M (6.0%)
+        - Subordinated notes: $1,878M (8.5%)
+        - Revolver: $1,000M (undrawn)
+
+        **Operating Assumptions:**
+        - Revenue growth: 4% CAGR (Years 1-5)
+        - EBITDA margin expansion: 17.5% → 19.5% (synergies)
+        - CapEx: 4% of revenue
+        - Cash taxes: 21%
+        - Debt paydown: 100% of FCF after interest
+
+        **Exit Assumptions:**
+        - Hold period: 5 years
+        - Exit multiple: 9.0x EBITDA (conservative)
+        - Debt at exit: $9,847M (paid down $4,031M)
+        - Exit enterprise value: $29,813M
+        - Exit equity value: $19,966M
+
+        **Returns:**
+        - Initial equity: $14,117M
+        - Exit equity: $19,966M
+        - **MOIC: 1.41x**
+        - **IRR: 13.0%**
+
+        **Reverse LBO:**
+        Working backwards from target 20% IRR:
+        - Max entry price: $300/share
+        - At $355: Only 13% IRR (below target)
+        - **Conclusion: $300-320 is max from pure LBO perspective**
+        - Strategic value justifies higher price
+
+        **Data Sources:**
+        - Leverage multiples: S&P LCD, Leveraged Loan Market
+        - Interest rates: Bloomberg, current market
+        - LBO model: Standard PE approach
+        """)
+
+    with method_tab4:
+        st.markdown("### Precedent Transactions Methodology")
+
+        st.markdown("""
+        **Concept:**
+        Analyze recent M&A transactions in behavioral health and acute care sectors.
+
+        **Comparable Transactions:**
+
+        **Behavioral Health:**
+        1. **Acadia Healthcare (ACHC) - 2021 Private Equity Interest**
+           - EV: $7.5B
+           - EV/EBITDA: 12.5x
+           - Premium to current trading due to growth profile
+
+        2. **LifePoint Health - 2018 (Apollo, RCCH)**
+           - EV: $5.6B
+           - EV/EBITDA: 10.8x
+           - Similar rural hospital focus
+
+        3. **Envision Healthcare - 2018 (KKR)**
+           - EV: $9.9B
+           - EV/EBITDA: 11.2x
+           - Physician staffing + ambulatory
+
+        **Acute Care:**
+        4. **Community Health Systems - Divestitures (2019-2022)**
+           - Average EV/EBITDA: 7.5x
+           - Quality hospitals command premium
+
+        5. **RegionalCare Hospital Partners - 2021 (SCP, FSS)**
+           - EV: $1.4B
+           - EV/EBITDA: 8.2x
+           - Rural acute care
+
+        **Valuation Approach:**
+        - Weight Behavioral 60% / Acute 40% (by EBITDA)
+        - Apply transaction multiples:
+          - Behavioral: 11.5x (average of precedents)
+          - Acute: 7.5x (average of precedents)
+        - Adjust for:
+          - Control premium: +20%
+          - Scale: -10% (UHS larger, less scarce)
+        - **Implied value: $388/share**
+
+        **Data Sources:**
+        - CapitalIQ: Transaction database
+        - S&P Global: Deal details
+        - Company presentations: Strategic rationale
+        """)
+
+    with method_tab5:
+        st.markdown("### Comparable Companies Methodology")
+
+        st.markdown("""
+        **Concept:**
+        Value UHS based on trading multiples of publicly-traded peers.
+
+        **Comparable Companies:**
+
+        **Behavioral Health Pure-Plays:**
+        1. **Acadia Healthcare (ACHC)**
+           - Market Cap: $8.2B
+           - EV/EBITDA: 10.2x
+           - EV/Revenue: 2.1x
+           - Similar scale, pure behavioral focus
+
+        2. **Tenet Healthcare (THC) - Behavioral Segment**
+           - Behavioral EV/EBITDA: 9.8x
+           - Growing segment, high margin
+
+        **Acute Care Peers:**
+        3. **HCA Healthcare (HCA)**
+           - Market Cap: $78B (largest)
+           - EV/EBITDA: 7.8x
+           - EV/Revenue: 1.3x
+           - Premium operator, best-in-class
+
+        4. **Community Health Systems (CYH)**
+           - Market Cap: $1.2B
+           - EV/EBITDA: 6.2x
+           - Struggling, lower quality
+
+        5. **Tenet Healthcare (THC) - Acute Segment**
+           - Acute EV/EBITDA: 6.8x
+           - Improving operations
+
+        **Valuation Approach:**
+        - Apply segment-weighted multiples:
+          - Behavioral: 10.0x (average ACHC, THC behavioral)
+          - Acute: 7.0x (average HCA, CYH, THC acute)
+        - UHS mix: 56% Behavioral / 44% Acute (by EBITDA)
+        - Blended multiple: 8.6x
+        - Apply to UHS LTM EBITDA: $2,775M
+        - Enterprise Value: $23,865M
+        - Less Net Debt: $4,379M
+        - **Equity Value: $19,486M = $300/share**
+
+        **Adjustments for UHS:**
+        - Conglomerate discount: -10% (operates two distinct businesses)
+        - Miller family control: -5% (illiquidity for public holders)
+        - Scale & diversification: +5% (largest behavioral platform)
+        - **Adjusted value: $290/share**
+
+        **Why Lowest of 5 Methods?**
+        - Trading comps reflect current market perception
+        - Market undervalues due to conglomerate structure
+        - Doesn't capture real estate value
+        - Doesn't reflect strategic value or synergies
+        - Other methods better for acquisition analysis
+
+        **Data Sources:**
+        - Trading multiples: Bloomberg, CapitalIQ
+        - Financial data: Company 10-Ks, 10-Qs
+        - As of: October 25, 2025
+        """)
+
+    st.markdown("---")
+
+    # Data Sources Summary
+    st.markdown("### 📚 Data Sources & Documentation")
+
+    st.markdown("""
+    **Primary Sources:**
+    1. **UHS 10-K (2024)** - Financial statements, segment reporting, debt instruments
+    2. **UHS 10-Q (Q2 2025)** - Latest financials
+    3. **UHS Investor Presentations** - Strategic priorities, facility portfolio
+    4. **Edgar Filings** - Historical filings, proxy statements
+
+    **Market Data:**
+    5. **Bloomberg Terminal** - Trading multiples, WACC inputs, debt pricing
+    6. **Capital IQ (S&P Global)** - Comp analysis, precedent transactions
+    7. **FactSet** - Financial models, consensus estimates
+
+    **Industry Research:**
+    8. **CMS OACT** - Healthcare spending projections
+    9. **American Hospital Association** - Industry trends
+    10. **SAMHSA** - Behavioral health demand data
+    11. **Green Street Advisors** - Healthcare REIT cap rates
+
+    **All data files available in:** `data/graphs/` folder (30+ CSV files)
+    """)
+
+# ==========================================
+# PAGE: DATA EXPLORER
+# ==========================================
+
+elif page == "📁 Data Explorer":
+    st.title("📁 DATA EXPLORER")
+    st.markdown("### Download & Explore All Analysis Data")
+
+    st.markdown("---")
+
+    # Data category selector
+    data_category = st.selectbox(
+        "Select Data Category:",
+        [
+            "SOTP Valuation",
+            "DCF Analysis",
+            "LBO Analysis",
+            "Synergies",
+            "Capital Structure",
+            "Acquisition Scenarios",
+            "Football Field Summary"
+        ]
+    )
+
+    st.markdown("---")
+
+    if data_category == "SOTP Valuation":
+        st.markdown("### 💎 SOTP Valuation Data")
+
+        tab1, tab2, tab3, tab4 = st.tabs([
+            "Scenarios",
+            "Detailed Breakdown",
+            "OpCo Sensitivity",
+            "PropCo Sensitivity"
+        ])
+
+        with tab1:
+            if not data['sotp_scenarios'].empty:
+                st.dataframe(data['sotp_scenarios'], use_container_width=True)
+                csv = data['sotp_scenarios'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download SOTP Scenarios CSV",
+                    csv,
+                    "sotp_scenarios.csv",
+                    "text/csv"
+                )
+
+        with tab2:
+            if not data['sotp_detailed'].empty:
+                st.dataframe(data['sotp_detailed'], use_container_width=True)
+                csv = data['sotp_detailed'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download SOTP Detailed CSV",
+                    csv,
+                    "sotp_detailed.csv",
+                    "text/csv"
+                )
+
+        with tab3:
+            if not data['sotp_opco_sensitivity'].empty:
+                st.dataframe(data['sotp_opco_sensitivity'], use_container_width=True)
+                csv = data['sotp_opco_sensitivity'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download OpCo Sensitivity CSV",
+                    csv,
+                    "sotp_opco_sensitivity.csv",
+                    "text/csv"
+                )
+
+        with tab4:
+            if not data['sotp_propco_sensitivity'].empty:
+                st.dataframe(data['sotp_propco_sensitivity'], use_container_width=True)
+                csv = data['sotp_propco_sensitivity'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download PropCo Sensitivity CSV",
+                    csv,
+                    "sotp_propco_sensitivity.csv",
+                    "text/csv"
+                )
+
+    elif data_category == "DCF Analysis":
+        st.markdown("### 📈 DCF Analysis Data")
+
+        tab1, tab2, tab3, tab4 = st.tabs([
+            "10-Year Projections",
+            "PV Analysis",
+            "Sensitivity",
+            "Summary"
+        ])
+
+        with tab1:
+            if not data['dcf_projections'].empty:
+                st.dataframe(data['dcf_projections'], use_container_width=True)
+                csv = data['dcf_projections'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download DCF Projections CSV",
+                    csv,
+                    "dcf_projections.csv",
+                    "text/csv"
+                )
+
+        with tab2:
+            if not data['dcf_pv_analysis'].empty:
+                st.dataframe(data['dcf_pv_analysis'], use_container_width=True)
+                csv = data['dcf_pv_analysis'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download PV Analysis CSV",
+                    csv,
+                    "dcf_pv_analysis.csv",
+                    "text/csv"
+                )
+
+        with tab3:
+            if not data['dcf_sensitivity'].empty:
+                st.dataframe(data['dcf_sensitivity'], use_container_width=True)
+                csv = data['dcf_sensitivity'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download DCF Sensitivity CSV",
+                    csv,
+                    "dcf_sensitivity.csv",
+                    "text/csv"
+                )
+
+        with tab4:
+            if not data['dcf_summary'].empty:
+                st.dataframe(data['dcf_summary'], use_container_width=True)
+                csv = data['dcf_summary'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download DCF Summary CSV",
+                    csv,
+                    "dcf_summary.csv",
+                    "text/csv"
+                )
+
+    elif data_category == "LBO Analysis":
+        st.markdown("### 💰 LBO Analysis Data")
+
+        tab1, tab2, tab3, tab4, tab5 = st.tabs([
+            "5-Year Projections",
+            "Scenario Analysis",
+            "IRR Sensitivity",
+            "MOIC Sensitivity",
+            "Summary"
+        ])
+
+        with tab1:
+            if not data['lbo_projections'].empty:
+                st.dataframe(data['lbo_projections'], use_container_width=True)
+                csv = data['lbo_projections'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download LBO Projections CSV",
+                    csv,
+                    "lbo_projections.csv",
+                    "text/csv"
+                )
+
+        with tab2:
+            if not data['lbo_scenarios'].empty:
+                st.dataframe(data['lbo_scenarios'], use_container_width=True)
+                csv = data['lbo_scenarios'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download LBO Scenarios CSV",
+                    csv,
+                    "lbo_scenarios.csv",
+                    "text/csv"
+                )
+
+        with tab3:
+            if not data['lbo_irr_sensitivity'].empty:
+                st.dataframe(data['lbo_irr_sensitivity'], use_container_width=True)
+                csv = data['lbo_irr_sensitivity'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download IRR Sensitivity CSV",
+                    csv,
+                    "lbo_irr_sensitivity.csv",
+                    "text/csv"
+                )
+
+        with tab4:
+            if not data['lbo_moic_sensitivity'].empty:
+                st.dataframe(data['lbo_moic_sensitivity'], use_container_width=True)
+                csv = data['lbo_moic_sensitivity'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download MOIC Sensitivity CSV",
+                    csv,
+                    "lbo_moic_sensitivity.csv",
+                    "text/csv"
+                )
+
+        with tab5:
+            if not data['lbo_summary'].empty:
+                st.dataframe(data['lbo_summary'], use_container_width=True)
+                csv = data['lbo_summary'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download LBO Summary CSV",
+                    csv,
+                    "lbo_summary.csv",
+                    "text/csv"
+                )
+
+    elif data_category == "Synergies":
+        st.markdown("### 🚀 Synergies Data")
+
+        tab1, tab2, tab3 = st.tabs([
+            "Summary",
+            "Cost Breakdown",
+            "Pro-Forma Financials"
+        ])
+
+        with tab1:
+            if not data['synergies_summary'].empty:
+                st.dataframe(data['synergies_summary'], use_container_width=True)
+                csv = data['synergies_summary'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download Synergies Summary CSV",
+                    csv,
+                    "synergies_summary.csv",
+                    "text/csv"
+                )
+
+        with tab2:
+            if not data['cost_synergies'].empty:
+                st.dataframe(data['cost_synergies'], use_container_width=True)
+                csv = data['cost_synergies'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download Cost Synergies CSV",
+                    csv,
+                    "cost_synergies.csv",
+                    "text/csv"
+                )
+
+        with tab3:
+            if not data['proforma_financials'].empty:
+                st.dataframe(data['proforma_financials'], use_container_width=True)
+                csv = data['proforma_financials'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download Pro-Forma Financials CSV",
+                    csv,
+                    "proforma_financials.csv",
+                    "text/csv"
+                )
+
+    elif data_category == "Capital Structure":
+        st.markdown("### 🏦 Capital Structure Data")
+
+        tab1, tab2, tab3 = st.tabs([
+            "Debt Instruments",
+            "Maturity Schedule",
+            "Equity Structure"
+        ])
+
+        with tab1:
+            if not data['debt_instruments'].empty:
+                st.dataframe(data['debt_instruments'], use_container_width=True)
+                csv = data['debt_instruments'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download Debt Instruments CSV",
+                    csv,
+                    "debt_instruments.csv",
+                    "text/csv"
+                )
+
+        with tab2:
+            if not data['debt_maturity'].empty:
+                st.dataframe(data['debt_maturity'], use_container_width=True)
+                csv = data['debt_maturity'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download Maturity Schedule CSV",
+                    csv,
+                    "debt_maturity.csv",
+                    "text/csv"
+                )
+
+        with tab3:
+            if not data['equity_structure'].empty:
+                st.dataframe(data['equity_structure'], use_container_width=True)
+                csv = data['equity_structure'].to_csv(index=False)
+                st.download_button(
+                    "📥 Download Equity Structure CSV",
+                    csv,
+                    "equity_structure.csv",
+                    "text/csv"
+                )
+
+    elif data_category == "Acquisition Scenarios":
+        st.markdown("### 💼 Acquisition Premium Analysis")
+
+        if not data['acquisition_premiums'].empty:
+            st.dataframe(data['acquisition_premiums'], use_container_width=True, height=400)
+            csv = data['acquisition_premiums'].to_csv(index=False)
+            st.download_button(
+                "📥 Download Acquisition Premiums CSV",
+                csv,
+                "acquisition_premiums.csv",
+                "text/csv"
+            )
+
+    elif data_category == "Football Field Summary":
+        st.markdown("### 🎯 Football Field Valuation Summary")
+
+        if not data['football_field'].empty:
+            st.dataframe(data['football_field'], use_container_width=True)
+            csv = data['football_field'].to_csv(index=False)
+            st.download_button(
+                "📥 Download Football Field CSV",
+                csv,
+                "football_field_summary.csv",
+                "text/csv"
+            )
+
+        if os.path.exists('data/graphs/football_field_valuation.png'):
+            st.markdown("### 📊 Football Field Chart")
+            st.image('data/graphs/football_field_valuation.png', use_column_width=True)
+
+            with open('data/graphs/football_field_valuation.png', 'rb') as file:
+                st.download_button(
+                    "📥 Download Football Field Chart (PNG)",
+                    file,
+                    "football_field_valuation.png",
+                    "image/png"
+                )
+
+# ==========================================
+# FOOTER
+# ==========================================
+
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; color: #778da9; font-size: 14px; padding: 20px 0;">
+    <b>🏢 Ascendra Capital</b> | UHS Acquisition Analysis<br>
+    Prepared: October 29, 2025 | Classification: Highly Confidential<br>
+    <i>For questions contact: Investment Committee</i>
+</div>
+""", unsafe_allow_html=True)

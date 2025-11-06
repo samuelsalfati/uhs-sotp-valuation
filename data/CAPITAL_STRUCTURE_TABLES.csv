@@ -1,0 +1,212 @@
+UHS CAPITAL STRUCTURE - COMPLETE DATA TABLES
+Extracted from 10-K 2024
+Date: December 31 2024
+
+===== EQUITY CAPITAL STRUCTURE =====
+
+Share Class,Shares Outstanding,Par Value,% of Total Shares,Exchange Listed,Convertible To,Voting Rights (Directors),Votes Per Share (General),Special Conditions
+Class A Common,6576475,0.01,10.1%,No,Class B (1:1),"Elects 5 directors (with Class C, 90.5% voting power)",1 vote,Always
+Class B Common,57726557,0.01,88.9%,NYSE (Ticker: UHS),Not convertible,"Elects 2 directors (with Class D, 9.5% voting power)",0.1 vote (one-tenth),Always
+Class C Common,661688,0.01,1.0%,No,Class B (1:1),"Elects 5 directors (with Class A, 90.5% voting power)",100 votes,IF holder owns 10x Class A shares; otherwise 1 vote
+Class D Common,12614,0.01,0.0%,No,Class B (1:1),"Elects 2 directors (with Class B, 9.5% voting power)",10 votes,IF holder owns 10x Class B shares; otherwise 0.1 vote
+TOTAL,64977334,,100.0%,,,,
+
+Diluted Shares (incl options/RSUs),67896000,,,,,,
+
+Control Structure Notes:
+"Alan B. Miller and family control majority of Class A + Class C shares"
+"Family can elect 5 of 7 directors WITHOUT needing other shareholders"
+"Family controls 90.5% of voting power with only 10.8% economic ownership"
+"Hostile takeovers nearly impossible due to dual-class structure"
+
+===== DEBT CAPITAL STRUCTURE =====
+
+Instrument,Type,Seniority,Outstanding Principal (M),Interest Rate,Maturity Date,Quarterly Payment,Annual Interest (M),Secured By,Guarantors,Callable,Notes
+Revolving Credit Facility,Revolver,Senior Secured,$130,SOFR + 1.375%,Sept 26 2029,Variable (drawn/repaid),$6.2,Substantially all assets,All material subsidiaries,Yes,"Total capacity: $1,300M; Available: $1,167M; LOC: $3M"
+Tranche A Term Loan,Term Loan,Senior Secured,"$1,190",SOFR + 1.375%,Sept 26 2029,$7.5M principal,$56.9,Substantially all assets,All material subsidiaries,Yes,New facility issued Sept 2024; replaced $2.2B old loan
+Senior Notes 1.65%,Bond,Senior Unsecured,$700,1.65% (fixed),Aug 2026,None (semi-annual interest),$11.6,None (unsecured),None,Yes,"Earliest maturity - 18 months; Issued Aug 2021"
+Senior Notes 4.625%,Bond,Senior Unsecured,$500,4.625% (fixed),Sept 2029,None (semi-annual interest),$23.1,None (unsecured),None,Yes,Issued Sept 2024; Used to refinance term loan
+Senior Notes 2.65% (2030),Bond,Senior Unsecured,$800,2.65% (fixed),Sept 2030,None (semi-annual interest),$21.2,None (unsecured),None,Yes,Issued Sept 2020
+Senior Notes 2.65% (2032),Bond,Senior Unsecured,$500,2.65% (fixed),Aug 2032,None (semi-annual interest),$13.3,None (unsecured),None,Yes,Issued Aug 2021
+Senior Notes 5.050%,Bond,Senior Unsecured,$500,5.050% (fixed),Sept 2034,None (semi-annual interest),$25.3,None (unsecured),None,Yes,"Issued Sept 2024; Longest maturity; Highest rate"
+
+TOTAL DEBT,,,"$4,320",,,,$157.6,,,
+
+Current Portion (< 1 year),,,$40.1,,,,,,,
+Long-Term Debt,,,"$4,464.5",,,,,,,
+Cash & Equivalents,,,"($126.0)",,,,,,,
+NET DEBT,,,"$4,378.5",,,,,,,
+
+===== DEBT MATURITY SCHEDULE =====
+
+Year,Principal Due (M),Interest Due (M),Total Cash Outflow (M),Major Items Due,Refinancing Risk
+2025,$40,$180,$220,Term loan amortization ($30M),Low - minimal maturities
+2026,$381,$176,$557,"$700M Senior Notes 1.65% + term loan amortization",Medium - need to refinance $700M
+2027,$431,$168,$599,Term loan amortization ($30M),Low
+2028,$451,$163,$614,Term loan amortization ($30M),Low
+2029,"$1,277",$148,"$1,425","$1,070M term loan balloon + $500M Senior Notes 4.625% + revolver",HIGH - major refinancing event
+2030,$800,$120,$920,$800M Senior Notes 2.65%,Medium
+2031,None,$21,$21,Interest only,Low
+2032,$500,$8,$508,$500M Senior Notes 2.65%,Medium
+2033,None,$25,$25,Interest only,Low
+2034,$500,$0,$500,$500M Senior Notes 5.050%,Medium
+TOTAL,"$4,380","$1,009","$5,389",,
+
+Weighted Average Interest Rate,4.8%,,,,,
+Weighted Average Maturity,5.8 years,,,,,
+
+===== DEBT COVENANTS & RATIOS =====
+
+Covenant/Ratio,Limit/Target,Actual (2024),Status,Notes
+Net Debt / EBITDA,<= 4.0x (estimated),1.58x,✓ PASS - Strong compliance,"Comfortable cushion; can add $6.7B more debt"
+Interest Coverage (EBITDA / Interest),>= 3.0x (estimated),14.9x,✓ PASS - Excellent,"Operating Income $1,682M / Interest $186M = 9.0x (even more conservative)"
+Current Ratio,>= 1.0x,1.27x,✓ PASS,"Current Assets $2,816M / Current Liabilities $2,210M"
+Fixed Charge Coverage,Details not disclosed,Not disclosed,Assumed compliant,No covenant violations mentioned in 10-K
+
+Overall Debt Compliance Status: ✓ FULL COMPLIANCE - All covenants met with significant cushion
+
+===== SENIORITY WATERFALL (CLAIMS PRIORITY) =====
+
+Priority Level,Category,Instruments,Amount (M),Secured By,Recovery in Default (Est.),Notes
+1,Senior Secured,"Revolver + Term Loan","$1,320",Substantially all assets,90-100%,First lien on substantially all UHS assets and subsidiaries
+2,Senior Unsecured,All Senior Notes,"$3,000",None (unsecured),40-70%,"Pari passu with each other; rank equally; no subordination"
+3,Subordinated Debt,None,$0,N/A,N/A,UHS has no subordinated debt
+4,Preferred Stock,None,$0,N/A,N/A,UHS has no preferred stock
+5,Common Equity,"Class A, B, C, D","$6,667 (book value)",N/A,0-30%,Residual claimants after all debt
+
+Intercreditor Agreement: Senior secured lenders have priority over unsecured noteholders on collateral
+
+===== INTEREST EXPENSE BREAKDOWN (2024) =====
+
+Source,Amount (M),% of Total,Rate,Notes
+Revolving Credit & Demand Notes,$18.8,10.1%,SOFR + 1.375%,Average drawn: ~$400M during year
+Term Loan (extinguished),$113.9,61.2%,SOFR + ~2.0%,Old $2.2B facility; paid off Sept 2024
+Term Loan (new 2029),$20.0,10.7%,SOFR + 1.375%,New $1.2B facility; 3 months of interest in 2024
+Senior Notes 2.65% (2030),$21.4,11.5%,2.65%,Full year
+Senior Notes 1.65% (2026),$11.7,6.3%,1.65%,Full year - lowest rate
+Senior Notes 2.65% (2032),$13.4,7.2%,2.65%,Full year
+Senior Notes 4.625% (2029),$6.1,3.3%,4.625%,Partial year (issued Sept 2024)
+Senior Notes 5.050% (2034),$6.7,3.6%,5.050%,Partial year (issued Sept 2024)
+Amortization of financing fees,$5.0,2.7%,N/A,Non-cash
+Other interest expense,$9.4,5.1%,Various,Miscellaneous
+Capitalized interest on projects,"($38.9)",-20.9%,N/A,Reduces expense (construction)
+Interest income,"($1.4)",-0.8%,N/A,Cash investments
+NET INTEREST EXPENSE,$186.1,100.0%,4.8% weighted avg,Decreased from $207M in 2023
+
+===== CREDIT FACILITY DETAILS =====
+
+Credit Agreement,Tenth Amendment - September 26 2024
+Original Agreement Date,November 15 2010 (amended 10 times since)
+Current Lenders,Syndicate of banks (lead: JPMorgan Chase - assumed)
+Administrative Agent,Not specified in 10-K excerpt
+
+Revolving Credit Facility:
+- Total Capacity: $1,300M (increased from $1,200M in Sept 2024)
+- Borrowed: $130M as of Dec 31 2024
+- Letters of Credit: $3M
+- Available: $1,167M (90% of capacity available)
+- Purpose: Working capital and general corporate purposes
+- Maturity: September 26 2029 (extended in Sept 2024)
+
+Term Loan Facility:
+- Total Borrowings: $1,200M (issued Sept 2024)
+- Outstanding: $1,190M (as of Dec 31 2024)
+- Amortization: $7.5M per quarter ($30M annually = 2.5% annually)
+- Balloon Payment: ~$1,070M due Sept 26 2029
+- Purpose: Refinanced old $2.2B term loan (paid down $1.0B using new senior notes proceeds)
+- Maturity: September 26 2029
+
+Interest Rate Options (Both Facilities):
+Option 1 - ABR (Alternate Base Rate):
+  ABR + 0.375% margin
+  ABR = highest of: (a) Prime Rate (b) Fed Funds + 0.5% (c) SOFR + 1%
+
+Option 2 - SOFR (Secured Overnight Financing Rate):
+  SOFR + 1.375% margin
+  Current effective rate: ~6.4% (assuming SOFR ~5.0%)
+
+Margin Pricing Grid: Based on Net Debt / EBITDA ratio
+- Current margin: 1.375% (SOFR) / 0.375% (ABR)
+- Margin can decrease if leverage improves
+
+Mandatory Prepayments:
+- Asset sale proceeds (with reinvestment rights)
+- Casualty/condemnation proceeds (with reinvestment rights)
+- Debt issuance proceeds (except permitted debt)
+- No prepayment penalties
+
+Financial Covenants (estimated from standard credit agreements):
+- Maximum Net Debt / EBITDA: Likely 4.0-4.5x
+- Minimum Interest Coverage: Likely 3.0x
+- Maximum secured debt ratio
+- Restrictions on additional indebtedness
+
+Negative Covenants:
+- Restrictions on liens
+- Restrictions on mergers/asset sales
+- Restrictions on dividends (with carve-outs)
+- Restrictions on investments
+- Restrictions on transactions with affiliates
+
+===== STOCK REPURCHASE PROGRAM =====
+
+Authorization (as of Jan 1 2024),$422.9M remaining
+Additional Authorization (July 2024),"+$1,000.0M"
+Total Available (Dec 31 2024),$824.4M remaining
+
+2024 Repurchase Activity:
+- Shares repurchased (program): 2,982,906 shares
+- Amount spent (program): $598.5M
+- Average price (program): ~$200.65 per share
+- Shares repurchased (tax withholding): 375,248 shares
+- Amount spent (tax withholding): $72.2M
+- TOTAL 2024: 3,358,154 shares for $670.7M
+
+Program Terms:
+- Target: Class B Common Stock only
+- Method: Open market or negotiated private transactions
+- Timing: From time to time as conditions allow
+- Expiration: None (no expiration date)
+
+Impact on Share Count:
+- Shares outstanding decreased from ~68M (2023) to 65M (2024)
+- Aggressive buyback program (bought back ~5% of shares in 2024)
+
+===== LIQUIDITY ANALYSIS =====
+
+Source,Amount (M),Availability,Notes
+Cash & Equivalents,$126.0,Immediate,On balance sheet
+Revolver Available,"$1,167.0",Immediate (subject to draw),"90% of $1.3B capacity available"
+Operating Cash Flow (2024),"$2,067.0",Ongoing,"Strong generation; +63% vs 2023"
+Free Cash Flow (2024 est.),"$1,427.0",Ongoing,"OCF $2,067M - CapEx ~$640M"
+
+Total Immediate Liquidity:,"$1,293.0",,Cash + available revolver
+Total Annual Liquidity:,"$3,494.0",,Immediate + FCF
+
+Uses of Cash:
+- Debt Service (2025): $220M (principal + interest)
+- CapEx (2025 est): $650-700M
+- Share Buybacks: $824M authorized remaining
+- Dividends: None (UHS does not pay cash dividends)
+- Working Capital: Minimal (strong cash conversion)
+
+Liquidity Coverage:
+- Debt service coverage: 6.3x (OCF / debt service)
+- Near-term obligations fully covered by cash + revolver
+
+===== BOOK VALUE & TANGIBLE BOOK VALUE =====
+
+Item,Amount (M),Per Share,Notes
+Total Stockholders' Equity,"$6,666.2",$102.59,Book value
+Less: Goodwill,"($3,932.9)","($60.52)",From acquisitions
+Less: Other Intangibles (est),$0.0,$0.00,Appears minimal/included in goodwill
+Tangible Stockholders' Equity,"$2,733.3",$42.07,Tangible book value
+
+Market Price (Oct 27 2025),$208.39,,
+Price / Book Value,2.03x,,Premium to book
+Price / Tangible Book Value,4.95x,,Significant premium to tangible
+
+Market Cap (at current price),"$13,390",,"64.98M shares × $208.39"
+Market Cap / Book Equity,2.01x,,Reasonable for healthcare company
+
+===== END OF CAPITAL STRUCTURE TABLES =====

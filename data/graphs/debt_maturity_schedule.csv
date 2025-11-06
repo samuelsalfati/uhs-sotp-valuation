@@ -1,0 +1,12 @@
+Year,Principal_Due_M,Interest_Due_M,Total_Outflow_M,Major_Items_Due,Refinancing_Risk
+2025,40.1,179.7,219.8,Term loan amortization ($30M),Low
+2026,381,176,557,"$700M Notes 1.65% + $30M term loan",Medium
+2027,431,168,599,Term loan amortization ($30M),Low
+2028,451,163,614,Term loan amortization ($30M),Low
+2029,1277,148,1425,"$1070M term loan balloon + $500M Notes 4.625%",HIGH
+2030,800,120,920,$800M Notes 2.65%,Medium
+2031,0,21,21,Interest only,Low
+2032,500,8,508,$500M Notes 2.65%,Medium
+2033,0,25,25,Interest only,Low
+2034,500,0,500,$500M Notes 5.050%,Medium
+TOTAL,4380,1009,5389,,

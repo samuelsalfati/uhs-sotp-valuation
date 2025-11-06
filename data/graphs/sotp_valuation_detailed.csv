@@ -1,0 +1,4 @@
+Scenario,Behavioral_OpCo_EBITDA,Behavioral_OpCo_Multiple,Behavioral_OpCo_Value,Behavioral_PropCo_NOI,Behavioral_Cap_Rate,Behavioral_PropCo_Value,Acute_OpCo_EBITDA,Acute_OpCo_Multiple,Acute_OpCo_Value,Acute_PropCo_NOI,Acute_Cap_Rate,Acute_PropCo_Value,Enterprise_Value,Net_Debt,Equity_Value,Shares_Outstanding,Value_Per_Share,Current_Price,Upside_Pct
+BEAR,607,8.5,5160,1007,0.07,14386,329,6.0,1974,978,0.07,13971,35491,4379,31112,63.64,489,225.30,117.1
+BASE,607,9.0,5463,1007,0.065,15492,329,6.5,2139,978,0.065,15046,38140,4379,33761,63.64,530,225.30,135.3
+BULL,607,9.5,5767,1007,0.06,16783,329,7.0,2303,978,0.06,16300,41153,4379,36774,63.64,578,225.30,156.5

@@ -1,0 +1,17 @@
+  # CONFIDENTIAL DATA - DO NOT COMMIT
+  data/
+  exports/
+  *.pdf
+  *.xlsx
+  *.csv
+
+  # Python
+  __pycache__/
+  *.pyc
+  .DS_Store
+  venv/
+
+  # Environment
+  .env
+  EOF
+

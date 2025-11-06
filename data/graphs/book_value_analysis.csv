@@ -1,0 +1,10 @@
+Item,Amount_M,Per_Share,Multiple_to_Market,Notes
+Total Stockholders Equity,6666.2,102.59,2.03x,Book value
+Goodwill,3932.9,60.52,N/A,From acquisitions (27% of assets)
+Tangible Equity,2733.3,42.07,4.95x,Equity minus goodwill
+Current Market Price,208.39,208.39,1.0x,As of Oct 27 2025
+Price / Book,2.03x,2.03x,N/A,Reasonable for healthcare
+Price / Tangible Book,4.95x,4.95x,N/A,Premium valuation
+Market Cap,13390,206.04,N/A,"At $208.39, with 64.28M shares"
+Enterprise Value,17769,273.37,N/A,Market cap + net debt
+EV / Book Equity,2.67x,2.67x,N/A,
