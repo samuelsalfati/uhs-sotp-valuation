@@ -27,6 +27,45 @@ st.set_page_config(
 )
 
 # ==========================================
+# PASSWORD PROTECTION
+# ==========================================
+
+def check_password():
+    """Returns `True` if the user had the correct password."""
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["password"] == "Ascendra2024!":  # Change this password
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store password
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if password is correct
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show password input
+    st.markdown("### 🔒 UHS Acquisition Analysis - Restricted Access")
+    st.markdown("**Ascendra Capital - Confidential & Proprietary**")
+    st.text_input(
+        "Enter Password",
+        type="password",
+        on_change=password_entered,
+        key="password",
+        placeholder="Enter access code"
+    )
+
+    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
+        st.error("❌ Incorrect password. Please try again.")
+
+    return False
+
+# Check password before showing any content
+if not check_password():
+    st.stop()
+
+# ==========================================
 # HELPER FUNCTIONS
 # ==========================================
 
