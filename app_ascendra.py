@@ -367,6 +367,7 @@ page = st.sidebar.radio(
         "🏦 Capital Structure",
         "🎯 Sensitivity Analysis",
         "🔍 Methodology",
+        "📚 Data Room",
         "📁 Data Explorer"
     ],
     label_visibility="visible"
@@ -1864,6 +1865,14 @@ elif page == "🔍 Methodology":
 
     **All data files available in:** `data/graphs/` folder (30+ CSV files)
     """)
+
+# ==========================================
+# PAGE: DATA ROOM
+# ==========================================
+
+elif page == "📚 Data Room":
+    from components.data_room import render_data_room_page
+    render_data_room_page()
 
 # ==========================================
 # PAGE: DATA EXPLORER
