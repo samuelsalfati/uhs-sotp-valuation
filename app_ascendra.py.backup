@@ -27,45 +27,6 @@ st.set_page_config(
 )
 
 # ==========================================
-# PASSWORD PROTECTION
-# ==========================================
-
-def check_password():
-    """Returns `True` if the user had the correct password."""
-
-    def password_entered():
-        """Checks whether a password entered by the user is correct."""
-        if st.session_state["password"] == "Ascendra2024!":  # Change this password
-            st.session_state["password_correct"] = True
-            del st.session_state["password"]  # Don't store password
-        else:
-            st.session_state["password_correct"] = False
-
-    # Return True if password is correct
-    if st.session_state.get("password_correct", False):
-        return True
-
-    # Show password input
-    st.markdown("### 🔒 UHS Acquisition Analysis - Restricted Access")
-    st.markdown("**Ascendra Capital - Confidential & Proprietary**")
-    st.text_input(
-        "Enter Password",
-        type="password",
-        on_change=password_entered,
-        key="password",
-        placeholder="Enter access code"
-    )
-
-    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
-        st.error("❌ Incorrect password. Please try again.")
-
-    return False
-
-# Check password before showing any content
-if not check_password():
-    st.stop()
-
-# ==========================================
 # HELPER FUNCTIONS
 # ==========================================
 
@@ -373,7 +334,7 @@ page = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("**📅 Prepared:** November 7, 2025")
+st.sidebar.markdown("**📅 Prepared:** October 29, 2025")
 st.sidebar.markdown("**🔒 Classification:** Highly Confidential")
 
 # ==========================================
@@ -484,17 +445,19 @@ if page == "📊 Executive Summary":
     st.success("💡 INVESTMENT RECOMMENDATION")
     st.subheader("PURSUE ACQUISITION AT $333-375/SHARE")
 
-    st.write("**Why This Deal Makes Sense:**")
-    st.write("")
-    st.write(f"✅ **Deep Value:** UHS trades at ${CURRENT_PRICE:.2f}, worth $410 = **{upside_pct:.0f}% upside**")
-    st.write("")
-    st.write("✅ **Synergies:** $433M annual cost savings = **$67/share additional value**")
-    st.write("")
-    st.write("✅ **Executable:** Miller family controls 90.5% voting (one decision maker)")
-    st.write("")
-    st.write("✅ **Returns:** 3-year IRR of **28-32%** (exceptional)")
-    st.write("")
-    st.write("✅ **Still Cheap:** Even at $355 (70% premium), buying **15% below fair value**")
+    st.markdown(f"""
+    **Why This Deal Makes Sense:**
+
+    ✅ **Deep Value:** UHS trades at ${CURRENT_PRICE:.2f}, worth $410 = **{upside_pct:.0f}% upside**
+
+    ✅ **Synergies:** $433M annual cost savings = **$67/share additional value**
+
+    ✅ **Executable:** Miller family controls 90.5% voting (one decision maker)
+
+    ✅ **Returns:** 3-year IRR of **28-32%** (exceptional)
+
+    ✅ **Still Cheap:** Even at $355 (70% premium), buying **15% below fair value**
+    """)
 
     st.markdown("---")
 
@@ -1294,12 +1257,12 @@ elif page == "🏦 Capital Structure":
         ax.set_facecolor('#1b263b')
 
         years = maturity['Year'].tolist()
-        amounts = [clean_currency(val) for val in maturity['Principal_Due_M'].tolist()]
+        amounts = [clean_currency(val) for val in maturity['Principal Maturing ($M)'].tolist()]
 
         bars = ax.bar(years, amounts, color='#4cc9f0', edgecolor='#06ffa5', linewidth=2, width=0.6)
 
         ax.set_xlabel('Year', fontsize=14, color='#e0e1dd', fontweight='bold')
-        ax.set_ylabel('Principal Due ($M)', fontsize=14, color='#e0e1dd', fontweight='bold')
+        ax.set_ylabel('Principal Maturing ($M)', fontsize=14, color='#e0e1dd', fontweight='bold')
         ax.set_title('Debt Maturity Schedule', fontsize=16, color='#4cc9f0', fontweight='bold', pad=20)
         ax.tick_params(colors='#e0e1dd', labelsize=12)
         ax.spines['bottom'].set_color('#2d3e50')
@@ -1836,7 +1799,7 @@ elif page == "🔍 Methodology":
         **Data Sources:**
         - Trading multiples: Bloomberg, CapitalIQ
         - Financial data: Company 10-Ks, 10-Qs
-        - As of: November 7, 2025
+        - As of: October 25, 2025
         """)
 
     st.markdown("---")
@@ -1847,7 +1810,7 @@ elif page == "🔍 Methodology":
     st.markdown("""
     **Primary Sources:**
     1. **UHS 10-K (2024)** - Financial statements, segment reporting, debt instruments
-    2. **UHS 10-Q (Q3 2025)** - Latest financials
+    2. **UHS 10-Q (Q2 2025)** - Latest financials
     3. **UHS Investor Presentations** - Strategic priorities, facility portfolio
     4. **Edgar Filings** - Historical filings, proxy statements
 
@@ -2195,7 +2158,7 @@ st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #778da9; font-size: 14px; padding: 20px 0;">
     <b>🏢 Ascendra Capital</b> | UHS Acquisition Analysis<br>
-    Prepared: November 7, 2025 | Classification: Highly Confidential<br>
+    Prepared: October 29, 2025 | Classification: Highly Confidential<br>
     <i>For questions contact: Investment Committee</i>
 </div>
 """, unsafe_allow_html=True)
