@@ -656,41 +656,63 @@ elif page == "💎 SOTP Valuation":
     st.markdown("### 🔍 BASE CASE - Detailed Breakdown")
 
     if not data['sotp_detailed'].empty:
-        detailed = data['sotp_detailed'][data['sotp_detailed']['Scenario'] == 'BASE'].iloc[0]
+        base_rows = data['sotp_detailed'][data['sotp_detailed']['Scenario'] == 'BASE']
+        if len(base_rows) > 0:
+            detailed = base_rows.iloc[0]
 
-        col1, col2, col3, col4 = st.columns(4)
+            col1, col2, col3, col4 = st.columns(4)
 
-        with col1:
-            st.metric(
-                "Behavioral OpCo",
-                f"${clean_currency(detailed['Behavioral_OpCo_Value'])/1000:.1f}B",
-                delta=f"{clean_currency(detailed['Behavioral_OpCo_Multiple']):.1f}x EBITDA"
-            )
-            st.caption(f"EBITDA: ${clean_currency(detailed['Behavioral_OpCo_EBITDA']):.0f}M")
+            with col1:
+                beh_opco_value = clean_currency(detailed.get('Behavioral_OpCo_Value', 0))
+                beh_opco_mult = clean_currency(detailed.get('Behavioral_OpCo_Multiple', 0))
+                beh_opco_ebitda = clean_currency(detailed.get('Behavioral_OpCo_EBITDA', 0))
 
-        with col2:
-            st.metric(
-                "Behavioral PropCo",
-                f"${clean_currency(detailed['Behavioral_PropCo_Value'])/1000:.1f}B",
-                delta=f"{clean_currency(detailed['Behavioral_Cap_Rate'])*100:.1f}% cap rate"
-            )
-            st.caption(f"NOI: ${clean_currency(detailed['Behavioral_PropCo_NOI']):.0f}M")
+                st.metric(
+                    "Behavioral OpCo",
+                    f"${beh_opco_value/1000:.1f}B",
+                    delta=f"{beh_opco_mult:.1f}x EBITDA"
+                )
+                st.caption(f"EBITDA: ${beh_opco_ebitda:.0f}M")
 
-        with col3:
-            st.metric(
-                "Acute OpCo",
-                f"${clean_currency(detailed['Acute_OpCo_Value'])/1000:.1f}B",
-                delta=f"{clean_currency(detailed['Acute_OpCo_Multiple']):.1f}x EBITDA"
-            )
-            st.caption(f"EBITDA: ${clean_currency(detailed['Acute_OpCo_EBITDA']):.0f}M")
+            with col2:
+                beh_propco_value = clean_currency(detailed.get('Behavioral_PropCo_Value', 0))
+                beh_cap_rate = clean_currency(detailed.get('Behavioral_Cap_Rate', 0))
+                beh_propco_noi = clean_currency(detailed.get('Behavioral_PropCo_NOI', 0))
 
-        with col4:
-            st.metric(
-                "Acute PropCo",
-                f"${clean_currency(detailed['Acute_PropCo_Value'])/1000:.1f}B",
-                delta=f"{clean_currency(detailed['Acute_Cap_Rate'])*100:.1f}% cap rate"
-            )
-            st.caption(f"NOI: ${clean_currency(detailed['Acute_PropCo_NOI']):.0f}M")
+                st.metric(
+                    "Behavioral PropCo",
+                    f"${beh_propco_value/1000:.1f}B",
+                    delta=f"{beh_cap_rate*100:.1f}% cap rate"
+                )
+                st.caption(f"NOI: ${beh_propco_noi:.0f}M")
+
+            with col3:
+                acute_opco_value = clean_currency(detailed.get('Acute_OpCo_Value', 0))
+                acute_opco_mult = clean_currency(detailed.get('Acute_OpCo_Multiple', 0))
+                acute_opco_ebitda = clean_currency(detailed.get('Acute_OpCo_EBITDA', 0))
+
+                st.metric(
+                    "Acute OpCo",
+                    f"${acute_opco_value/1000:.1f}B",
+                    delta=f"{acute_opco_mult:.1f}x EBITDA"
+                )
+                st.caption(f"EBITDA: ${acute_opco_ebitda:.0f}M")
+
+            with col4:
+                acute_propco_value = clean_currency(detailed.get('Acute_PropCo_Value', 0))
+                acute_cap_rate = clean_currency(detailed.get('Acute_Cap_Rate', 0))
+                acute_propco_noi = clean_currency(detailed.get('Acute_PropCo_NOI', 0))
+
+                st.metric(
+                    "Acute PropCo",
+                    f"${acute_propco_value/1000:.1f}B",
+                    delta=f"{acute_cap_rate*100:.1f}% cap rate"
+                )
+                st.caption(f"NOI: ${acute_propco_noi:.0f}M")
+        else:
+            st.error("BASE case scenario not found in SOTP detailed data")
+    else:
+        st.error("SOTP detailed data is empty")
 
     st.markdown("---")
 
