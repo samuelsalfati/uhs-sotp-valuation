@@ -275,8 +275,12 @@ def render_document_card(doc_info, base_path, search_term="", selected_tags=None
     return True
 
 
-def render_data_room_page(base_path="/Users/samuelsalfati/Documents/Investments/uhs-sotp-valuation"):
+def render_data_room_page(base_path=None):
     """Render the complete Data Room page"""
+
+    # Use relative path if not specified (works on Streamlit Cloud)
+    if base_path is None:
+        base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     st.title("📚 Data Room")
     st.markdown("### Comprehensive Documentation Library")
