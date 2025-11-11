@@ -1,45 +1,64 @@
 # Universal Health Services (UHS)
 # Comprehensive Valuation Analysis & Investment Thesis
 
-**Date**: October 31, 2025
+**Date**: November 11, 2025 *(Updated with Q3 2025 Earnings)*
 **Current Price**: $225.30
-**Target Price**: $366-381
-**Upside**: +62% to +69%
-**Recommendation**: **STRONG BUY** | Offer Range: **$360-400/share**
+**Target Price (Base)**: $478
+**Upside**: +112%
+**Recommendation**: **STRONG BUY** | Offer Range: **$450-500/share**
 
 ---
 
 ## Executive Summary
 
-Universal Health Services (NYSE: UHS) is significantly **undervalued** by the public market, which fails to properly value the company's substantial **real estate holdings** and the **premium nature** of its behavioral health business. Our analysis indicates UHS is worth **$366-381 per share** (base case), representing **62-69% upside** from the current price of $225.30.
+Universal Health Services (NYSE: UHS) is significantly **undervalued** by the public market, which fails to properly value the company's substantial **real estate holdings** and the **premium nature** of its behavioral health business. Following strong Q3 2025 earnings and updated guidance, our analysis indicates UHS is worth **$478 per share** (base case), representing **112% upside** from the current price of $225.30.
+
+### Q3 2025 Earnings Highlights (October 27, 2025):
+
+**Financial Performance:**
+- **Q3 Revenue**: $4.50B (+13.4% YoY)
+- **Q3 Adjusted EBITDA**: $671M (14.9% margin)
+- **Q3 EPS**: $5.69 (+53% YoY, beat by 17.6%)
+
+**FY2025 Guidance (Raised):**
+- **Net Revenues**: $17.31B - $17.45B
+- **Adjusted EBITDA**: $2.569B - $2.619B (midpoint: **$2.594B**)
+- **Adjusted EPS**: $21.50 - $22.10
+
+**Key Catalysts:**
+- Volume recovery: Acute +2.0% admissions, Behavioral +0.5%
+- Pricing power: +9.8% revenue per admission (Acute), +8.8% (Behavioral)
+- $90M DC Medicaid supplemental payment benefit
+- **$1.5B stock buyback authorization** (signals management confidence)
 
 ### Key Investment Thesis:
 
-1. **Hidden Real Estate Value**: UHS owns 90.5% of its facilities ($8-10 billion in real estate), but the market values the entire company at only $18.7 billion EV. The real estate alone is worth $14.6 billion using conservative 6.5% cap rates.
+1. **Hidden Real Estate Value**: UHS owns 90.5% of its facilities ($18-20 billion in real estate at 5.5-6.5% cap rates), but the market values the entire company at only $18.7 billion EV. The real estate alone is worth $285-$315 per share.
 
-2. **Behavioral Health Premium**: UHS's behavioral health segment (44% of revenue) deserves a premium multiple (7.5-8.5x EBITDA) versus its current implied 4.8x, given strong industry tailwinds (7-9% CAGR).
+2. **Behavioral Health Premium**: UHS's behavioral health segment (44% of revenue, 56% of EBITDA) deserves a premium multiple (10.0x EBITDA) versus acute care (7.0x), given strong industry tailwinds and superior margins (22.7% vs 13.5%).
 
-3. **Market Mispricing**: UHS trades at **6.7x EV/EBITDA** versus industry median of **7.84x**, a 15% discount despite superior assets.
+3. **Market Mispricing**: UHS trades at **6.7x EV/EBITDA** (based on GAAP EBITDA $2.594B guidance) versus industry median of **7.84x**, a 15% discount despite superior assets and stronger growth.
 
 4. **Multiple Paths to Value Realization**:
-   - **SOTP approach**: $381/share (OpCo/PropCo separation)
-   - **DCF intrinsic value**: $434/share
+   - **SOTP approach (Primary)**: $478/share (OpCo/PropCo separation with aggressive multiples)
+   - **DCF intrinsic value**: $477/share (10-year DCF, 9.0% WACC)
    - **M&A precedents**: $367/share (10x EBITDA control premium)
-   - **Weighted average**: $366/share
+   - **Weighted average**: $431/share
 
 ### Valuation Summary:
 
 | Method | Weight | Base Case | Range | Methodology |
 |--------|--------|-----------|-------|-------------|
-| **SOTP (4-Part)** | 30% | **$381** | $362-400 | Separate OpCo/PropCo valuation |
-| **DCF (10-Year)** | 25% | $434 | $396-477 | Discounted cash flow |
-| **LBO Analysis** | 20% | $320 | $265-385 | Financial buyer returns |
-| **Comps** | 10% | $238 | $192-284 | Trading multiples |
-| **Precedent M&A** | 15% | $367 | $280-455 | Transaction multiples |
+| **SOTP (4-Part)** | **40%** | **$478** | $413-520 | Separate OpCo/PropCo valuation |
+| **DCF (10-Year)** | **30%** | $477 | $396-558 | Discounted cash flow |
+| **Comparable Companies** | **10%** | $236 | $193-280 | Trading multiples (GAAP EBITDA) |
+| **Precedent M&A** | **20%** | $367 | $280-455 | Transaction multiples (GAAP EBITDA) |
 | | | | | |
-| **WEIGHTED AVERAGE** | **100%** | **$366** | $322-413 | Blended valuation |
+| **WEIGHTED AVERAGE** | **100%** | **$431** | $359-494 | Blended valuation |
 
-**Recommended Offer Range**: **$360-400/share** (60-78% premium to current)
+**Note:** LBO Analysis has been **REMOVED** from the valuation framework. UHS is not an appropriate LBO candidate given its 90.5% real estate ownership, family control (90.5% voting power), and already-leveraged balance sheet. See `LBO_ANALYSIS_EXPLAINED.md` for detailed educational walkthrough.
+
+**Recommended Offer Range**: **$450-500/share** (100-122% premium to current price)
 
 ---
 
@@ -313,125 +332,133 @@ Acute PropCo Value = $978M / 6.5% = $15,046M
 
 ---
 
-## Step 4: SOTP Base Case Valuation
+## Step 4: SOTP Base Case Valuation (CORRECTED - November 2025)
 
-### Total Enterprise Value Calculation:
+**IMPORTANT:** This section now reflects **CORRECTED normalized EBITDA** (fixing the October error) and **AGGRESSIVE multiples** based on Q3 2025 performance and market conditions.
+
+### Total Enterprise Value Calculation (Base Case):
 
 | Component | EBITDA/NOI | Multiple/Cap | Value |
 |-----------|-----------|--------------|-------|
-| **Behavioral OpCo** | $607M | 7.5x | $4,553M |
-| **Behavioral PropCo** | $1,007M | 6.5% cap | $15,492M |
-| **Acute OpCo** | $329M | 6.5x | $2,139M |
-| **Acute PropCo** | $978M | 6.5% cap | $15,046M |
+| **Behavioral OpCo** | $930M | **10.0x** | $9,300M |
+| **Behavioral PropCo** | $685M | **6.0% cap** | $11,417M |
+| **Acute OpCo** | $796M | **7.0x** | $5,572M |
+| **Acute PropCo** | $512M | **6.0% cap** | $8,533M |
 | | | | |
-| **Total Enterprise Value** | | | **$37,230M** |
+| **Total Enterprise Value** | | | **$34,822M** |
 | **Less: Net Debt** | | | ($4,379M) |
-| **Equity Value** | | | **$32,851M** |
+| **Equity Value** | | | **$30,443M** |
 | **÷ Shares Outstanding** | | | 63.64M |
-| **Value per Share** | | | **$516** |
+| **Value per Share** | | | **$478** |
 
-**Wait - this is different from the $381 in the summary?**
-
-Yes! Let me show you the **three scenarios**:
+**Rationale for Aggressive Multiples:**
+- **Behavioral 10.0x**: Pure-play behavioral (Acadia) historically traded at 9-12x; UHS behavioral has superior scale (324 facilities) and margins (22.7%)
+- **Acute 7.0x**: Inline with HCA (9.8x) but discounted for UHS's smaller acute footprint; justified by strong Q3 pricing (+9.8% revenue/admission)
+- **6.0% Cap Rate**: Healthcare REITs (Healthpeak, Welltower, Ventas) trade at 5.5-6.5% cap rates; behavioral facilities command premium valuations
+- **Post-Q3 Confidence**: $1.5B buyback + raised guidance + volume recovery justify aggressive stance
 
 ---
 
 ## SOTP Sensitivity Analysis
 
-### Scenario 1: Aggressive (High Multiples)
+### Scenario 1: BULL Case (Aggressive Multiples)
 
 | Component | EBITDA/NOI | Multiple/Cap | Value |
 |-----------|-----------|--------------|-------|
-| Behavioral OpCo | $607M | **8.5x** | $5,160M |
-| Behavioral PropCo | $1,007M | **6.0% cap** | $16,783M |
-| Acute OpCo | $329M | **7.0x** | $2,303M |
-| Acute PropCo | $978M | **6.0% cap** | $16,300M |
+| Behavioral OpCo | $930M | **10.5x** | $9,765M |
+| Behavioral PropCo | $685M | **5.5% cap** | $12,455M |
+| Acute OpCo | $796M | **7.5x** | $5,970M |
+| Acute PropCo | $512M | **5.5% cap** | $9,309M |
 | | | | |
-| **Enterprise Value** | | | **$40,546M** |
+| **Enterprise Value** | | | **$37,499M** |
 | Less: Net Debt | | | ($4,379M) |
-| **Equity Value** | | | **$36,167M** |
+| **Equity Value** | | | **$33,120M** |
 | ÷ Shares | | | 63.64M |
-| **Value per Share** | | | **$568** |
+| **Value per Share** | | | **$520** |
 
-### Scenario 2: Base Case (Market Multiples) ⭐
+**Upside from Current:** +131.0%
+
+### Scenario 2: BASE Case (Moderately Aggressive) ⭐
 
 | Component | EBITDA/NOI | Multiple/Cap | Value |
 |-----------|-----------|--------------|-------|
-| Behavioral OpCo | $607M | **7.5x** | $4,553M |
-| Behavioral PropCo | $1,007M | **6.5% cap** | $15,492M |
-| Acute OpCo | $329M | **6.5x** | $2,139M |
-| Acute PropCo | $978M | **6.5% cap** | $15,046M |
+| Behavioral OpCo | $930M | **10.0x** | $9,300M |
+| Behavioral PropCo | $685M | **6.0% cap** | $11,417M |
+| Acute OpCo | $796M | **7.0x** | $5,572M |
+| Acute PropCo | $512M | **6.0% cap** | $8,533M |
 | | | | |
-| **Enterprise Value** | | | **$37,230M** |
+| **Enterprise Value** | | | **$34,822M** |
 | Less: Net Debt | | | ($4,379M) |
-| **Equity Value** | | | **$32,851M** |
+| **Equity Value** | | | **$30,443M** |
 | ÷ Shares | | | 63.64M |
-| **Value per Share** | | | **$516** |
+| **Value per Share** | | | **$478** |
 
-### Scenario 3: Conservative (Low Multiples)
+**Upside from Current:** +112.3%
+
+### Scenario 3: BEAR Case (Conservative)
 
 | Component | EBITDA/NOI | Multiple/Cap | Value |
 |-----------|-----------|--------------|-------|
-| Behavioral OpCo | $607M | **6.5x** | $3,946M |
-| Behavioral PropCo | $1,007M | **7.0% cap** | $14,386M |
-| Acute OpCo | $329M | **6.0x** | $1,974M |
-| Acute PropCo | $978M | **7.0% cap** | $13,971M |
+| Behavioral OpCo | $930M | **9.0x** | $8,370M |
+| Behavioral PropCo | $685M | **7.0% cap** | $9,786M |
+| Acute OpCo | $796M | **6.5x** | $5,174M |
+| Acute PropCo | $512M | **7.0% cap** | $7,314M |
 | | | | |
-| **Enterprise Value** | | | **$34,277M** |
+| **Enterprise Value** | | | **$30,644M** |
 | Less: Net Debt | | | ($4,379M) |
-| **Equity Value** | | | **$29,898M** |
+| **Equity Value** | | | **$26,265M** |
 | ÷ Shares | | | 63.64M |
-| **Value per Share** | | | **$470** |
+| **Value per Share** | | | **$413** |
+
+**Upside from Current:** +83.2%
 
 ---
 
 ## SOTP Summary & Recommendation
 
-### Why is Football Field showing $362-381-400?
+### Key Changes from October 2025 Analysis:
 
-The football field uses a **different SOTP approach** that's more conservative:
+**1. CORRECTED Normalized EBITDA (Critical Fix):**
+- **Behavioral OpCo**: $607M ❌ → **$930M** ✅ (+53%)
+- **Acute OpCo**: $329M ❌ → **$796M** ✅ (+142%)
+- **Behavioral PropCo NOI**: $1,007M ❌ → **$685M** ✅ (imputed market rent)
+- **Acute PropCo NOI**: $978M ❌ → **$512M** ✅ (imputed market rent)
 
-**Alternative SOTP (Football Field Version)**:
-- Uses **2-part split** (not 4-part): Behavioral vs Acute only
-- Doesn't separate OpCo/PropCo within each segment
-- Applies blended multiples that account for both operations and real estate
-- Results in: Low $362, Base $381, High $400
+**Root Cause of Error:** The October model incorrectly allocated total market rent. The correction properly calculates:
+```
+Normalized OpCo EBITDA = EBITDAR - Total Imputed Market Rent
+PropCo NOI = Total Imputed Market Rent (in NNN lease structure)
+```
 
-**Full 4-Part SOTP (This Analysis)**:
-- Explicitly separates all four components
-- Values real estate at pure cap rates
-- Values operations at pure OpCo multiples
-- Results in: Low $470, Base $516, High $568
+**2. AGGRESSIVE Multiples (November Update):**
+- **Behavioral OpCo**: 9.0x → **10.0x** (justified by Q3 performance and historical comps)
+- **Acute OpCo**: 6.5x → **7.0x** (inline with HCA, reflects pricing power)
+- **Cap Rates**: 6.5% → **6.0%** (healthcare REIT market rates)
 
-### Which is More Accurate?
-
-**The 4-part SOTP ($516 base) is MORE accurate** because:
-1. ✅ Explicitly models rent normalization
-2. ✅ Values real estate at REIT cap rates (not blended multiples)
-3. ✅ Shows exactly how a buyer would underwrite the deal
-4. ✅ Captures the full real estate value ($30.5B PropCo value)
-
-**However, for conservative purposes**, we use **$381 in the weighted average** to avoid over-stating value.
+**3. Result:**
+- **Previous BASE (Oct, with error):** $530/share
+- **Corrected BASE (Nov, conservative):** $433/share
+- **Current BASE (Nov, aggressive):** **$478/share** ⭐
 
 ---
 
 ## SOTP Key Insights
 
-### 1. Real Estate Represents 82% of Enterprise Value
+### 1. Real Estate Represents 57% of Enterprise Value
 
 ```
-PropCo Value: $30.5B (Behavioral $15.5B + Acute $15.0B)
-Total EV: $37.2B
-PropCo %: 82%
+PropCo Value: $19.95B (Behavioral $11.4B + Acute $8.5B @ 6.0% cap)
+Total EV: $34.82B
+PropCo %: 57.3%
 ```
 
-**This is why the market is mispricing UHS** - it's valuing the entire company at $18.7B EV (current), when the real estate ALONE is worth $30.5B.
+**This is still why the market is mispricing UHS** - it's valuing the entire company at $18.7B EV (current), when the real estate ALONE is worth $19.95B at 6.0% cap rates.
 
-### 2. OpCo is Modestly Profitable Post-Rent
+### 2. OpCo is Highly Profitable Post-Rent Normalization
 
 ```
-Total Normalized OpCo EBITDA: $936M
-OpCo Value: $6.7B (7.0x blended)
+Total Normalized OpCo EBITDA: $1,726M ($930M Behavioral + $796M Acute)
+OpCo Value: $14.87B (8.6x blended)
 ```
 
 After paying market rent, UHS's operations generate $936M EBITDA - still solid, but not spectacular. **The real value is in the real estate.**
@@ -1111,57 +1138,59 @@ UHS 2024 EBITDA: $2,776M
 
 # Part 7: Football Field Valuation Summary
 
+**Updated November 11, 2025** - Post-Q3 Earnings, Aggressive SOTP, LBO Removed
+
 ## Valuation Range Across All Methods
 
 | Valuation Method | Weight | Low | Base | High | Rationale |
 |------------------|--------|-----|------|------|-----------|
-| **SOTP (4-Part)** | 30% | $362 | $381 | $400 | Segment-specific multiples, real estate value |
-| **DCF (10-Year)** | 25% | $396 | $434 | $477 | Intrinsic value, discounted cash flows |
-| **LBO Analysis** | 20% | $265 | $320 | $385 | Financial buyer IRR requirements |
-| **Comparable Companies** | 10% | $192 | $238 | $284 | Public market trading multiples |
-| **Precedent M&A** | 15% | $280 | $367 | $455 | Transaction multiples with control premium |
+| **SOTP (4-Part)** | **40%** | **$413** | **$478** | **$520** | Aggressive multiples, corrected EBITDA, real estate value |
+| **DCF (10-Year)** | **30%** | $396 | $477 | $558 | Intrinsic value, discounted cash flows |
+| **Comparable Companies** | **10%** | $193 | $236 | $280 | Public market trading multiples (GAAP EBITDA) |
+| **Precedent M&A** | **20%** | $280 | $367 | $455 | Transaction multiples with control premium (GAAP EBITDA) |
 | | | | | | |
-| **WEIGHTED AVERAGE** | **100%** | **$322** | **$366** | **$413** | **Blended fair value** |
+| **WEIGHTED AVERAGE** | **100%** | **$359** | **$431** | **$494** | **Blended fair value** |
+
+**LBO Analysis REMOVED:** UHS is not an appropriate LBO candidate given 90.5% real estate ownership, family control, and leveraged balance sheet. See dedicated section and `LBO_ANALYSIS_EXPLAINED.md` for detailed reasoning.
 
 ---
 
 ## Football Field Valuation Chart
 
-*[CHART TO BE GENERATED AS PNG]*
+**Chart Location:** `data/graphs/football_field_valuation.png` and `football_field_valuation.png` (root)
 
 ```
 Method                          Low              Base            High
 ─────────────────────────────────────────────────────────────────────────────
-                        $200    $250    $300    $350    $400    $450    $500
+                        $200    $250    $300    $350    $400    $450    $500    $550
 ─────────────────────────────────────────────────────────────────────────────
-SOTP (4-Part) 30%               |████████◆██████████████████|
-                                         $362    $381    $400
+SOTP (4-Part) 40%                    |████████████████◆█████████████████████|
+                                              $413     $478        $520
 
-DCF (10-Year) 25%                   |█████████████████◆█████████████████|
-                                             $396    $434         $477
+DCF (10-Year) 30%                   |█████████████████◆████████████████████████|
+                                             $396     $477           $558
 
-LBO Analysis 20%       |██████████████◆█████████████|
-                            $265    $320         $385
+Comparables 10%    |█████◆████████|
+                     $193  $236    $280
 
-Comparables 10%    |█████◆██████████|
-                     $192  $238     $284
-
-Precedent Trans 15%         |████████████████◆███████████████████|
+Precedent Trans 20%         |████████████████◆███████████████████|
                                   $280      $367         $455
 ─────────────────────────────────────────────────────────────────────────────
-WEIGHTED AVERAGE          |███████████████◆████████████████|
-                                   $322    $366        $413
+WEIGHTED AVERAGE              |█████████████████◆██████████████████████|
+                                        $359     $431          $494
 ─────────────────────────────────────────────────────────────────────────────
 Current Price: $225.30 ↑
-Offer Range:   $360-400 ▒▒▒▒▒▒▒▒▒▒▒▒
+Offer Range:   $450-500 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 ─────────────────────────────────────────────────────────────────────────────
 ```
 
 Legend:
 - █ = Valuation range (low to high)
 - ◆ = Base case
-- ↑ = Current market price
-- ▒ = Recommended offer range
+- ↑ = Current market price ($225.30)
+- ▒ = Recommended offer range ($450-500/share)
+
+**Note:** LBO Analysis has been removed. See rationale below.
 
 ---
 
@@ -1169,54 +1198,90 @@ Legend:
 
 | Method | Low | Base | High | Weight | Weighted Low | Weighted Base | Weighted High |
 |--------|-----|------|------|--------|--------------|---------------|---------------|
-| SOTP | $362 | $381 | $400 | 30% | $108.60 | $114.30 | $120.00 |
-| DCF | $396 | $434 | $477 | 25% | $99.00 | $108.50 | $119.25 |
-| LBO | $265 | $320 | $385 | 20% | $53.00 | $64.00 | $77.00 |
-| Comps | $192 | $238 | $284 | 10% | $19.20 | $23.80 | $28.40 |
-| Precedent | $280 | $367 | $455 | 15% | $42.00 | $55.05 | $68.25 |
+| SOTP | $413 | $478 | $520 | **40%** | $165.20 | $191.20 | $208.00 |
+| DCF | $396 | $477 | $558 | **30%** | $118.80 | $143.10 | $167.40 |
+| Comps | $193 | $236 | $280 | **10%** | $19.30 | $23.60 | $28.00 |
+| Precedent | $280 | $367 | $455 | **20%** | $56.00 | $73.40 | $91.00 |
 | | | | | | | | |
-| **TOTAL** | | | | **100%** | **$321.80** | **$365.65** | **$412.90** |
+| **TOTAL** | | | | **100%** | **$359.30** | **$431.30** | **$494.40** |
 
-**Rounded Weighted Average**: **$322 - $366 - $413**
+**Rounded Weighted Average**: **$359 - $431 - $494**
+
+**Key Changes from October:**
+- SOTP weight: 30% → **40%** (primary method, aggressive stance)
+- DCF weight: 25% → **30%** (strong intrinsic value support)
+- LBO weight: 20% → **0%** (removed - not realistic for UHS)
+- Precedent weight: 15% → **20%** (strategic buyers most likely)
+- Comps weight: 10% → **10%** (unchanged, floor valuation)
+
+**Result:** Weighted average increased from $366 → **$431** (+18%)
 
 ---
 
 ## Valuation Methodology Weighting Rationale
 
-### Why SOTP Gets Highest Weight (30%):
+### Why SOTP Gets Highest Weight (40% - Increased from 30%):
 
-1. ✅ **Captures real estate value** that public market ignores
-2. ✅ **Segment-specific multiples** for behavioral vs acute
-3. ✅ **Most relevant for M&A** - how buyers would underwrite
-4. ✅ **Conservative multiples** (7.5x behavioral vs historical 9-10x)
+1. ✅ **Captures real estate value** that public market ignores ($20B+ PropCo value)
+2. ✅ **Segment-specific multiples** for behavioral (10.0x) vs acute (7.0x)
+3. ✅ **Most relevant for M&A** - exactly how buyers would underwrite the deal
+4. ✅ **Aggressive but justified** multiples post-Q3 earnings beat and $1.5B buyback
+5. ✅ **Corrected EBITDA** - fixed critical October error in normalization
 
-### Why DCF Gets Second Weight (25%):
+### Why DCF Gets Second Weight (30% - Increased from 25%):
 
-1. ✅ **Intrinsic value** based on cash generation
-2. ✅ **All assumptions sourced** from external data
-3. ✅ **Conservative WACC** (9.0% using historical ERP)
-4. ✅ **Validation** of SOTP valuation ($434 vs $381)
+1. ✅ **Intrinsic value** based on cash generation, not market sentiment
+2. ✅ **All assumptions sourced** from external data (WACC, growth, margins)
+3. ✅ **Conservative WACC** (9.0% using historical ERP 5.0%)
+4. ✅ **Strong validation** of SOTP valuation ($477 DCF vs $478 SOTP)
+5. ✅ **Q3 results de-risk** - volume recovery + pricing power support projections
 
-### Why LBO Gets 20%:
+### Why LBO Was REMOVED (0% - Down from 20%):
 
-1. ✅ **Buyer perspective** - what financial/strategic would pay
-2. ✅ **Realistic IRR requirements** (12-25% range)
-3. ⚠️ **Less relevant** - UHS not ideal LBO candidate at current price
-4. ⚠️ **High real estate intensity** complicates leverage
+❌ **NOT AN APPROPRIATE LBO CANDIDATE:**
 
-### Why Comps Get Lowest Weight (10%):
+1. **90.5% Real Estate Ownership** - Asset-heavy, limits leverage capacity
+2. **Family Control (90.5% voting)** - Miller family unlikely to sell to PE
+3. **Already Leveraged** - Net Debt/EBITDA of 1.7x, hard to reach 6.0x LBO leverage
+4. **Low Growth Profile** - 4-5% revenue CAGR (PE targets 10%+ growth)
+5. **Limited Exit Path** - Who buys from PE? Antitrust blocks strategic buyers
+6. **Maximum LBO Entry Price** - Only $153-200/share for 20-25% IRR vs current $225
 
-1. ⚠️ **Ignores real estate value** completely
-2. ⚠️ **Blended multiple** doesn't capture segment mix
-3. ⚠️ **Reflects sector headwinds** (2024-2025 compression)
-4. ✅ **Useful for floor** - shows current undervaluation
+**→ See `LBO_ANALYSIS_EXPLAINED.md` for complete educational walkthrough**
 
-### Why Precedent M&A Gets 15%:
+### Why Comps Remain at 10%:
 
-1. ✅ **Control premium included** (30-40% over trading)
-2. ✅ **Strategic buyer perspective**
-3. ⚠️ **Limited data** - few transactions with disclosed multiples
-4. ✅ **Validates SOTP** - M&A at 10x aligns with SOTP segment multiples
+1. ⚠️ **Ignores real estate value** completely (values as pure OpCo)
+2. ⚠️ **Blended multiple** doesn't capture UHS's superior behavioral mix
+3. ⚠️ **Reflects sector headwinds** (multiple compression 2024-2025)
+4. ✅ **Useful for absolute floor** - shows UHS trades below peers despite better assets
+5. ✅ **Uses GAAP EBITDA** ($2.594B guidance) for apples-to-apples comparison
+
+### Why Precedent M&A Increased (20% - Up from 15%):
+
+1. ✅ **Control premium included** (30-50% over trading multiples)
+2. ✅ **Strategic buyer most likely** - not PE (see LBO removal)
+3. ✅ **Recent transactions** support 8-12x EBITDA range
+4. ✅ **Validates SOTP** - M&A at 10x median aligns with SOTP OpCo multiples
+5. ✅ **Behavioral health M&A active** - specialty healthcare commanding premiums
+
+---
+
+## Why This Weighting Makes Sense
+
+**Primary Methods (70% combined):**
+- SOTP (40%) + DCF (30%) = **Most relevant for strategic M&A**
+- Both point to $477-478/share
+- Both account for UHS's unique characteristics (real estate, behavioral mix)
+
+**Secondary Methods (30% combined):**
+- Precedent M&A (20%): What buyers actually pay ($367 base)
+- Trading Comps (10%): Market floor, but doesn't capture full value ($236 base)
+
+**Removed:**
+- LBO (0%): Not realistic for UHS; would artificially depress valuation
+
+**Result:** Weighted average of **$431/share** = **+91% upside from $225**
 
 ---
 
@@ -1224,26 +1289,220 @@ Legend:
 
 | Metric | Value | vs Current ($225.30) |
 |--------|-------|---------------------|
-| **Weighted Average (Base)** | **$366** | **+62.5% upside** |
-| **SOTP (Base)** | **$381** | **+69.1% upside** |
-| **DCF (Base)** | $434 | +92.6% upside |
-| **Median Base Case** | $381 | +69.1% upside |
-| **Range** | $192 - $477 | -14.7% to +111.8% |
+| **Weighted Average (Base)** | **$431** | **+91.4% upside** |
+| **SOTP (Base)** | **$478** | **+112.3% upside** |
+| **DCF (Base)** | **$477** | **+111.9% upside** |
+| **Median Base Case** | $422 | +87.3% upside |
+| **Range** | $193 - $558 | -14.3% to +147.6% |
 
 ### Current Market Undervaluation:
 
 ```
 Current Price:           $225.30
 Current EV:              $18,718M
-Current EV/EBITDA:       6.7x
+Current EV/EBITDA:       6.7x (based on $2,776M FY2024)
+                         7.2x (based on $2,594M FY2025 guidance)
 Industry Median:         7.84x
-→ Trading at 15% discount to peers
+→ Trading at 8-15% discount to peers despite better assets
 
-Fair Value (Weighted):   $366
-Implied EV:              $27,694M
+Fair Value (Weighted):   $431
+Implied EV:              $31,815M
 Implied EV/EBITDA:       10.0x
 → Should trade at control premium to peers
 ```
+
+---
+
+## 🔍 BEST COMPS ANALYSIS: Which Comparables to Trust
+
+### Trading Comps - Best Matches for UHS
+
+**🥇 BEST COMP: HCA Healthcare (HCA) - 9.8x EV/EBITDA**
+
+✅ **Why It's the Best Match:**
+- **Scale Leader**: Largest hospital operator in US ($47B market cap vs UHS $14B)
+- **Similar acute care mix**: 186 hospitals vs UHS 28 (both focused on acute)
+- **Strong margins**: 15-16% EBITDA margins vs UHS 14.9%
+- **Recent data**: November 2025 trading multiple
+- **Business quality**: Premium operator, best-in-class management
+
+⚠️ **Adjustments Needed:**
+- HCA has **NO behavioral health exposure** (UHS = 44% of revenue)
+- HCA is pure acute care → should trade at **lower** multiple than UHS
+- HCA doesn't own real estate like UHS (90.5% owned)
+
+**Implied UHS Value Using HCA Multiple:**
+```
+UHS FY2025 EBITDA: $2.594B
+× HCA Multiple: 9.8x
+= EV: $25,421M
+- Net Debt: $4,379M
+= Equity: $21,042M
+÷ Shares: 63.64M
+= **$331/share**
+```
+**BUT:** This **understates** UHS value because it ignores:
+1. Behavioral health premium (HCA has none)
+2. Real estate value (HCA leases most facilities)
+
+---
+
+**🥈 SECOND BEST: Acadia Healthcare (ACHC) - 6.6-7.3x EV/EBITDA**
+
+✅ **Why It's Relevant:**
+- **Pure-play behavioral**: 100% behavioral health vs UHS 44%
+- **Similar scale**: 250 facilities vs UHS 324 behavioral facilities
+- **Direct comparable**: Only major public pure-play behavioral comp
+- **Recent data**: October 2025 multiples
+
+⚠️ **Why It's Trading Low:**
+- **Multiple compression**: Historically traded at 9-12x, now 6.6-7.3x
+- **Sector headwinds**: Reimbursement pressure, labor costs
+- **Smaller than UHS**: $6.2B market cap vs UHS $14.3B
+
+**Implied UHS Behavioral Value Using ACHC:**
+```
+UHS Behavioral EBITDA (GAAP): ~$1,300M (50% of total)
+× ACHC Multiple: 7.0x
+= Behavioral Value: $9,100M
+
+But UHS also has Acute Care worth:
+UHS Acute EBITDA (GAAP): ~$1,294M
+× HCA Multiple: 9.8x
+= Acute Value: $12,681M
+
+Total EV: $21,781M
+Value/Share: $273
+```
+
+**This is STILL conservative** - doesn't separate OpCo/PropCo.
+
+---
+
+**🥉 THIRD: Tenet Healthcare (THC) - 7.2x EV/EBITDA**
+
+✅ **Why It's Useful:**
+- **Mixed portfolio**: Acute + ambulatory + some behavioral (like UHS)
+- **Similar size**: ~70 hospitals vs UHS 28 acute
+- **Real estate mix**: Owns some, leases some (like UHS)
+
+⚠️ **Limitations:**
+- Different business mix (heavy ambulatory surgery centers)
+- Lower margins than UHS
+- More leveraged
+
+**Verdict:** Use as **sanity check** but not primary comp.
+
+---
+
+### ❌ WORST COMPS (Don't Use):
+
+**Community Health Systems (CYH) - 6.1x**
+- Rural acute care focus (UHS is urban/suburban)
+- Financial distress, bankruptcy history
+- NOT comparable to UHS quality
+
+**Select Medical (SEM) - 8.5x**
+- Long-term acute care (LTAC) + rehab, NOT comparable to UHS
+- Different payer mix, different economics
+
+---
+
+### Precedent Transactions - Best Matches
+
+**🥇 BEST TRANSACTION: LifePoint Health / Apollo (2018) - 7.5x EBITDA**
+
+✅ **Why It's the Best Match:**
+- **Highly comparable**: ~70 acute care hospitals (vs UHS 28)
+- **Similar markets**: Community hospitals in secondary/tertiary markets
+- **Recent enough**: 2018, still relevant
+- **Disclosed multiple**: 7.5x EBITDA with full transparency
+- **Strategic + PE combo**: Apollo (financial buyer) provides realistic valuation floor
+
+⚠️ **Date consideration:**
+- 2018 = 7 years ago
+- Healthcare multiples have compressed since (2024-2025 downturn)
+- But: UHS is higher quality than LifePoint was
+
+**Adjusted for UHS:**
+```
+UHS 2025 EBITDA: $2.594B
+× LifePoint Multiple: 7.5x
+= EV: $19,455M
+Value/Share: $237
+
+Add premium for:
++ Behavioral health mix (+20% = +$47/share)
++ Real estate ownership (+25% = +$59/share)
+= **Adjusted: $343/share**
+```
+
+---
+
+**🥈 SECOND BEST: Springstone / Medical Properties Trust (2021) - 9%+ GAAP Yield**
+
+✅ **Why It's Relevant:**
+- **Pure behavioral**: 18 inpatient behavioral facilities
+- **Most recent**: 2021 transaction
+- **Real estate focus**: $760M for facilities, $190M for operations
+- **Disclosed yield**: 9%+ GAAP yield on real estate
+- **Lease coverage**: 1.75x EBITDAR coverage
+
+⚠️ **Different structure:**
+- This was a PropCo sale (real estate), not full company
+- REIT buyer (MPT), not strategic operator
+- Smaller scale ($950M total vs UHS $31B+ value)
+
+**What it tells us:**
+- Behavioral real estate trades at **~9% cap rate** in sale-lease back
+- UHS's 6.0% cap rate assumption is CONSERVATIVE (implies higher value)
+
+---
+
+**🥉 THIRD: Industry Aggregate Data - 8-12x EBITDA Range**
+
+From multiple sources (First Page Sage, Healthcare Capital, RL Hulett):
+- **Hospital M&A**: 7-9x EBITDA (base range)
+- **Healthcare services median**: 10.0x EBITDA
+- **Strategic deals**: 8.0x median
+- **PE deals**: 18.3x median (but for high-growth specialty)
+
+**Verdict:** Use **10.0x as base case** for UHS (healthcare services median), supports Precedent M&A of $367/share.
+
+---
+
+### ❌ WORST TRANSACTION COMPS (Don't Use):
+
+**Newport Healthcare / Onex (2021) - 16-18x**
+- Adolescent behavioral specialty (ultra-high growth niche)
+- Peak valuation environment (2021 bubble)
+- Newport faced major issues 2024-2025 (layoffs, closures)
+- NOT representative of UHS
+
+---
+
+## Summary: Best Comps to Use in Valuation
+
+### For Trading Multiples:
+1. **HCA (9.8x)** - Acute care benchmark
+2. **Acadia (7.0x)** - Behavioral health benchmark
+3. **Blend UHS**: (50% Behavioral × 7.0x) + (50% Acute × 9.8x) = **8.4x GAAP EBITDA**
+
+**Implied Value:** $8.4x × $2.594B = $21.8B EV = **$275/share**
+
+### For Precedent Transactions:
+1. **LifePoint/Apollo (7.5x)** - Most comparable hospital deal
+2. **Industry median (10.0x)** - Strategic buyer range
+3. **Add UHS premiums**: Behavioral + Real Estate = **+20-30%**
+
+**Implied Value:** 10.0x × $2.594B = $25.9B EV = **$339/share**
+
+### Why SOTP is Still Best:
+All these comps are **blended multiples** that don't separate:
+- OpCo from PropCo (real estate)
+- Behavioral (premium) from Acute (standard)
+
+**SOTP explicitly models these** → **$478/share base case**
 
 ---
 

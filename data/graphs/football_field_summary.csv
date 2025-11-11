@@ -1,7 +1,7 @@
-Valuation Method,Low ($),Base ($),High ($),Weight (%)
-SOTP (4-Part),399,433,471,30
-DCF (10-Year),396,477,558,25
-LBO Analysis,265,320,385,20
-Comparable Companies,193,236,280,10
-Precedent Transactions,280,367,455,15
-WEIGHTED AVERAGE,333,391,454,100
+Valuation Method,Range,Base Case,Weight
+SOTP (4-Part),$413 - $520,$478,30%
+DCF (10-Year),$396 - $477,$434,25%
+LBO Analysis,$265 - $385,$320,20%
+Comparable Companies,$193 - $280,$236,10%
+Precedent Transactions,$280 - $455,$367,15%
+WEIGHTED AVERAGE,$337 - $448,$395,100%

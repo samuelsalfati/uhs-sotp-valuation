@@ -47,17 +47,17 @@ def load_all_valuations():
             'low': float(bear),
             'base': float(base),
             'high': float(bull),
-            'weight': 0.30,  # 30% weight (primary method)
+            'weight': 0.40,  # 40% weight (primary method, increased from 30%)
         })
     except Exception as e:
         print(f"Warning: Could not load SOTP data: {e}")
-        # Using updated SOTP values (Oct 31, 2025, BEHAVIORAL PREMIUM APPLIED)
+        # Using updated AGGRESSIVE SOTP values (Nov 10, 2025)
         valuations.append({
             'method': 'SOTP (4-Part)',
-            'low': 489,   # Conservative: 8.5x Beh (below historical), 6.0x Acute, 7.0% cap
-            'base': 530,  # Base: 9.0x Beh (historical avg, justified by 22.7% margins), 6.5x Acute, 6.5% cap
-            'high': 578,  # Optimistic: 9.5x Beh (M&A range), 7.0x Acute, 6.0% cap
-            'weight': 0.30,
+            'low': 413,   # Conservative: 9.0x Beh, 6.5x Acute, 7.0% cap
+            'base': 478,  # Moderately Aggressive: 10.0x Beh, 7.0x Acute, 6.0% cap
+            'high': 520,  # Aggressive: 10.5x Beh, 7.5x Acute, 5.5% cap
+            'weight': 0.40,  # 40% weight (increased from 30%)
         })
 
     # 2. DCF Valuation (from dcf_valuation_summary.csv) - UPDATED Oct 31, 2025
@@ -71,7 +71,7 @@ def load_all_valuations():
             'low': 396,  # WACC 9.5% (conservative)
             'base': 434,  # WACC 9.0% (historical ERP 5.0%)
             'high': 477,  # WACC 8.5% (current ERP 4.65%)
-            'weight': 0.25,  # 25% weight
+            'weight': 0.30,  # 30% weight (increased from 25%)
         })
     except:
         # Updated DCF values based on sourced WACC (Oct 31, 2025)
@@ -80,33 +80,25 @@ def load_all_valuations():
             'low': 396,   # WACC 9.5%, terminal 2.5%
             'base': 434,  # WACC 9.0%, terminal 2.5%
             'high': 477,  # WACC 8.5%, terminal 2.5%
-            'weight': 0.25,
+            'weight': 0.30,  # 30% weight (increased from 25%)
         })
 
-    # 3. LBO Analysis (from reverse LBO)
-    # LBO tells us what a financial buyer would pay
-    # Use reverse LBO results: 20-30% IRR targets
-    try:
-        # From LBO output, we know:
-        # 20% IRR → Max $300
-        # 25% IRR → Max $265
-        # 30% IRR → Max $225
-        # For strategic buyer (lower return requirement): 15-20% IRR
-        valuations.append({
-            'method': 'LBO Analysis',
-            'low': 265,  # 25% IRR (aggressive PE)
-            'base': 320,  # ~17% IRR (strategic buyer)
-            'high': 385,  # ~12% IRR (low return threshold)
-            'weight': 0.20,  # 20% weight
-        })
-    except:
-        valuations.append({
-            'method': 'LBO Analysis',
-            'low': 265,
-            'base': 320,
-            'high': 385,
-            'weight': 0.20,
-        })
+    # 3. LBO Analysis - REMOVED per user request (Nov 10, 2025)
+    # LBO not relevant for UHS given:
+    # - 90.5% real estate ownership (asset-heavy, not ideal for LBO)
+    # - Family control (90.5% voting power)
+    # - Already leveraged balance sheet
+    # COMMENTED OUT - keeping code for reference
+    # try:
+    #     valuations.append({
+    #         'method': 'LBO Analysis',
+    #         'low': 265,
+    #         'base': 320,
+    #         'high': 385,
+    #         'weight': 0.20,
+    #     })
+    # except:
+    #     pass
 
     # 4. Comparable Companies (trading multiples) - UPDATED Oct 31, 2025
     # Use current EV/EBITDA market multiples (SOURCED)
@@ -156,7 +148,7 @@ def load_all_valuations():
         'low': precedent_values['low'],
         'base': precedent_values['base'],
         'high': precedent_values['high'],
-        'weight': 0.15,  # 15% weight
+        'weight': 0.20,  # 20% weight (increased from 15%)
     })
 
     return pd.DataFrame(valuations)
