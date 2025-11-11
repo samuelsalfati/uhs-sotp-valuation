@@ -60,7 +60,7 @@ def load_all_valuations():
             'weight': 0.40,  # 40% weight (increased from 30%)
         })
 
-    # 2. DCF Valuation (from dcf_valuation_summary.csv) - UPDATED Oct 31, 2025
+    # 2. DCF Valuation (from dcf_valuation_summary.csv) - UPDATED Nov 11, 2025
     try:
         dcf = pd.read_csv('data/graphs/dcf_valuation_summary.csv')
         dcf_value = dcf['value_per_share'].values[0]
@@ -69,17 +69,17 @@ def load_all_valuations():
         valuations.append({
             'method': 'DCF (10-Year)',
             'low': 396,  # WACC 9.5% (conservative)
-            'base': 434,  # WACC 9.0% (historical ERP 5.0%)
-            'high': 477,  # WACC 8.5% (current ERP 4.65%)
+            'base': 477,  # WACC 8.5% (current ERP, updated Nov 11)
+            'high': 558,  # WACC 8.0% (optimistic)
             'weight': 0.30,  # 30% weight (increased from 25%)
         })
     except:
-        # Updated DCF values based on sourced WACC (Oct 31, 2025)
+        # Updated DCF values to match football_field_summary.csv (Nov 11, 2025)
         valuations.append({
             'method': 'DCF (10-Year)',
             'low': 396,   # WACC 9.5%, terminal 2.5%
-            'base': 434,  # WACC 9.0%, terminal 2.5%
-            'high': 477,  # WACC 8.5%, terminal 2.5%
+            'base': 477,  # WACC 8.5%, terminal 2.5%
+            'high': 558,  # WACC 8.0%, terminal 2.5%
             'weight': 0.30,  # 30% weight (increased from 25%)
         })
 
